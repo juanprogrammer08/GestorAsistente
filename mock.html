@@ -1,0 +1,3027 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prototipo de acceso a EDÉN, la oficina virtual para cotizaciones, proyectos y control de gastos.">
+  <title>EDÉN | Inicio de sesión</title>
+  <style>
+    :root {
+      --ink: #17231f;
+      --ink-soft: #52615b;
+      --forest: #123c33;
+      --forest-deep: #0b2923;
+      --green: #19745d;
+      --green-light: #e4f3ec;
+      --lime: #c9e87b;
+      --cream: #f5f6f1;
+      --paper: #ffffff;
+      --line: #dfe5df;
+      --line-strong: #cbd5cd;
+      --amber: #9a6416;
+      --amber-bg: #fff4dc;
+      --blue: #32658a;
+      --blue-bg: #eaf3fa;
+      --red: #a4443c;
+      --red-bg: #fbecea;
+      --shadow: 0 16px 45px rgba(18, 60, 51, .08);
+      --shadow-small: 0 5px 18px rgba(18, 60, 51, .06);
+      --radius: 18px;
+      --radius-small: 11px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 90% 4%, rgba(201, 232, 123, .16), transparent 25rem),
+        var(--cream);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a,
+    input,
+    select,
+    textarea,
+    summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      color: var(--forest-deep);
+      line-height: 1.18;
+      letter-spacing: -.025em;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(2rem, 4vw, 3.35rem);
+      font-weight: 750;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 1.3rem;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      color: #fff;
+      background: rgba(11, 41, 35, .97);
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      box-shadow: 0 8px 25px rgba(11, 41, 35, .12);
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar-inner {
+      max-width: 1540px;
+      margin: 0 auto;
+      padding: 14px 28px 12px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      display: grid;
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      color: var(--forest-deep);
+      background: var(--lime);
+      border-radius: 12px;
+      font-size: .82rem;
+      font-weight: 900;
+      letter-spacing: -.04em;
+    }
+
+    .brand-name {
+      display: block;
+      color: #fff;
+      font-size: .95rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .brand-product {
+      display: block;
+      color: #b9cbc4;
+      font-size: .76rem;
+    }
+
+    .environment {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 10px;
+      color: #dce9e3;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 999px;
+      font-size: .74rem;
+      white-space: nowrap;
+    }
+
+    .environment::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--lime);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(201, 232, 123, .1);
+    }
+
+    .nav-modules {
+      display: flex;
+      gap: 7px;
+      padding-bottom: 2px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #49675e transparent;
+    }
+
+    .nav-btn {
+      flex: 0 0 auto;
+      padding: 8px 11px;
+      color: #bfd0c9;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      font-size: .76rem;
+      font-weight: 650;
+      text-align: left;
+      transition: background .18s ease, color .18s ease, border-color .18s ease;
+    }
+
+    .nav-btn:hover,
+    .nav-btn:focus-visible {
+      color: #fff;
+      background: rgba(255, 255, 255, .08);
+      border-color: rgba(255, 255, 255, .1);
+      outline: none;
+    }
+
+    .nav-btn.active {
+      color: var(--forest-deep);
+      background: var(--lime);
+      border-color: var(--lime);
+    }
+
+    .app-main {
+      width: min(1380px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 48px 0 34px;
+    }
+
+    .pantalla {
+      display: block;
+      animation: appear .25s ease-out;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .screen-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .screen-header-copy {
+      max-width: 790px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 12px;
+      color: var(--green);
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 24px;
+      height: 2px;
+      content: "";
+      background: var(--green);
+    }
+
+    .screen-description {
+      max-width: 700px;
+      margin-bottom: 0;
+      color: var(--ink-soft);
+      font-size: 1rem;
+    }
+
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      width: fit-content;
+      padding: 5px 9px;
+      color: var(--ink-soft);
+      background: #edf0eb;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 700;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+
+    .badge.success {
+      color: #17614e;
+      background: var(--green-light);
+      border-color: #cde7dc;
+    }
+
+    .badge.warning {
+      color: var(--amber);
+      background: var(--amber-bg);
+      border-color: #f0dfb9;
+    }
+
+    .badge.info {
+      color: var(--blue);
+      background: var(--blue-bg);
+      border-color: #d4e5f0;
+    }
+
+    .badge.danger {
+      color: var(--red);
+      background: var(--red-bg);
+      border-color: #efd4d0;
+    }
+
+    .login-layout {
+      display: grid;
+      grid-template-columns: minmax(340px, .82fr) minmax(520px, 1.35fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .stack {
+      display: grid;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-small);
+    }
+
+    .card-padded {
+      padding: 26px;
+    }
+
+    .auth-card {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .auth-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+      content: "";
+      background: linear-gradient(90deg, var(--green), var(--lime));
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .card-heading p {
+      margin-bottom: 0;
+      color: var(--ink-soft);
+      font-size: .86rem;
+    }
+
+    .lock-icon {
+      display: grid;
+      flex: 0 0 42px;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      color: var(--forest);
+      background: var(--green-light);
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 17px;
+    }
+
+    .field label,
+    .field-label {
+      color: var(--forest-deep);
+      font-size: .8rem;
+      font-weight: 750;
+    }
+
+    .field-hint {
+      margin: -1px 0 0;
+      color: var(--ink-soft);
+      font-size: .74rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 13px;
+      color: var(--ink);
+      background: #fbfcfa;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #89958f;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      background: #fff;
+      border-color: var(--green);
+      box-shadow: 0 0 0 4px rgba(25, 116, 93, .11);
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      min-height: 16px;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--green);
+      box-shadow: none;
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin: 2px 0 20px;
+    }
+
+    .check-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ink-soft);
+      font-size: .78rem;
+      cursor: pointer;
+    }
+
+    .text-button {
+      padding: 0;
+      color: var(--green);
+      background: none;
+      border: 0;
+      font-size: .78rem;
+      font-weight: 750;
+    }
+
+    .text-button:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 17px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-size: .84rem;
+      font-weight: 800;
+      transition: transform .16s ease, background .16s ease, box-shadow .16s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid rgba(25, 116, 93, .22);
+      outline-offset: 2px;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--forest);
+      border-color: var(--forest);
+      box-shadow: 0 7px 16px rgba(18, 60, 51, .16);
+    }
+
+    .btn-primary:hover {
+      background: var(--forest-deep);
+    }
+
+    .btn-secondary {
+      color: var(--forest);
+      background: #fff;
+      border-color: var(--line-strong);
+    }
+
+    .btn-secondary:hover {
+      background: var(--green-light);
+      border-color: #b8d4c7;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-arrow {
+      margin-left: auto;
+      font-size: 1.05rem;
+    }
+
+    .form-footnote {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 15px 0 0;
+      color: var(--ink-soft);
+      font-size: .72rem;
+    }
+
+    .form-footnote strong {
+      color: var(--forest);
+    }
+
+    .demo-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0 16px;
+      color: #7a8881;
+      font-size: .7rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .demo-divider::before,
+    .demo-divider::after {
+      flex: 1;
+      height: 1px;
+      content: "";
+      background: var(--line);
+    }
+
+    .demo-accounts {
+      display: grid;
+      gap: 9px;
+    }
+
+    .demo-account {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 11px 12px;
+      background: #f8faf7;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+    }
+
+    .avatar {
+      display: grid;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: var(--forest);
+      background: #dfeee6;
+      border-radius: 50%;
+      font-size: .7rem;
+      font-weight: 850;
+    }
+
+    .demo-account-copy {
+      min-width: 0;
+    }
+
+    .demo-account-copy strong,
+    .demo-account-copy span {
+      display: block;
+    }
+
+    .demo-account-copy strong {
+      color: var(--forest-deep);
+      font-size: .78rem;
+    }
+
+    .demo-account-copy span {
+      overflow: hidden;
+      color: var(--ink-soft);
+      font-size: .7rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .demo-account .badge {
+      margin-left: auto;
+    }
+
+    .security-card {
+      padding: 20px 22px;
+      background: #eef4ef;
+      box-shadow: none;
+    }
+
+    .security-card h3 {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .security-list {
+      display: grid;
+      gap: 9px;
+      margin: 13px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .security-list li {
+      position: relative;
+      padding-left: 19px;
+      color: var(--ink-soft);
+      font-size: .77rem;
+    }
+
+    .security-list li::before {
+      position: absolute;
+      top: .48em;
+      left: 1px;
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .operations-card {
+      overflow: hidden;
+    }
+
+    .operations-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 25px 26px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .operations-header p {
+      margin-bottom: 0;
+      color: var(--ink-soft);
+      font-size: .82rem;
+    }
+
+    .demo-label {
+      padding: 6px 9px;
+      color: var(--amber);
+      background: var(--amber-bg);
+      border-radius: 8px;
+      font-size: .68rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric {
+      min-width: 0;
+      padding: 21px 18px;
+      background: #fff;
+    }
+
+    .metric-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric-icon {
+      display: grid;
+      width: 29px;
+      height: 29px;
+      place-items: center;
+      color: var(--green);
+      background: var(--green-light);
+      border-radius: 8px;
+      font-size: .72rem;
+      font-weight: 850;
+    }
+
+    .metric-value {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--forest-deep);
+      font-size: 1.75rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -.04em;
+    }
+
+    .metric-label {
+      display: block;
+      min-height: 34px;
+      color: var(--ink-soft);
+      font-size: .72rem;
+      line-height: 1.35;
+    }
+
+    .metric-change {
+      display: block;
+      margin-top: 8px;
+      color: var(--green);
+      font-size: .67rem;
+      font-weight: 700;
+    }
+
+    .table-block {
+      padding: 23px 26px 25px;
+    }
+
+    .table-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 15px;
+    }
+
+    .table-heading h3 {
+      margin: 0;
+    }
+
+    .table-heading span {
+      color: var(--ink-soft);
+      font-size: .72rem;
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .76rem;
+      text-align: left;
+    }
+
+    caption {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    th {
+      padding: 11px 13px;
+      color: #64736c;
+      background: #f5f8f4;
+      border-bottom: 1px solid var(--line);
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .055em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px;
+      color: var(--ink-soft);
+      border-bottom: 1px solid #edf0ec;
+      vertical-align: middle;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr:hover {
+      background: #fafcf9;
+    }
+
+    .record-id {
+      color: var(--forest);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .record-client {
+      display: block;
+      color: var(--ink);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .record-sub {
+      display: block;
+      margin-top: 2px;
+      color: #7b8982;
+      font-size: .67rem;
+      white-space: nowrap;
+    }
+
+    .access-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 21px 23px;
+      background: var(--forest-deep);
+      border-color: var(--forest-deep);
+      box-shadow: none;
+    }
+
+    .access-note-number {
+      display: grid;
+      flex: 0 0 34px;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      color: var(--forest-deep);
+      background: var(--lime);
+      border-radius: 10px;
+      font-size: .75rem;
+      font-weight: 900;
+    }
+
+    .access-note h3 {
+      margin-bottom: 5px;
+      color: #fff;
+    }
+
+    .access-note p {
+      margin-bottom: 0;
+      color: #bfd0c9;
+      font-size: .77rem;
+    }
+
+    .screen-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 25px;
+      padding-top: 18px;
+      color: #718078;
+      border-top: 1px solid var(--line);
+      font-size: .7rem;
+    }
+
+    .footer-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .footer-status::before {
+      width: 7px;
+      height: 7px;
+      content: "";
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 1120px) {
+      .login-layout {
+        grid-template-columns: minmax(320px, .85fr) minmax(450px, 1.15fr);
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metric-label {
+        min-height: auto;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .app-main {
+        width: min(100% - 34px, 760px);
+        padding-top: 34px;
+      }
+
+      .screen-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .header-tags {
+        justify-content: flex-start;
+      }
+
+      .login-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-column {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar-inner {
+        padding: 12px 16px 10px;
+      }
+
+      .brand-row {
+        margin-bottom: 10px;
+      }
+
+      .environment {
+        padding: 5px 8px;
+        font-size: .66rem;
+      }
+
+      .brand-product {
+        max-width: 190px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .app-main {
+        width: calc(100% - 28px);
+        padding: 27px 0 24px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .screen-description {
+        font-size: .88rem;
+      }
+
+      .auth-card,
+      .card-padded {
+        padding: 22px 19px;
+      }
+
+      .operations-header {
+        padding: 21px 19px 17px;
+      }
+
+      .operations-header {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .table-block {
+        padding: 20px 18px;
+      }
+
+      .table-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-options {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .screen-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .metrics-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .metric {
+        padding: 17px 14px;
+      }
+
+      .metric-value {
+        font-size: 1.5rem;
+      }
+
+      .demo-account .badge {
+        display: none;
+      }
+
+      .brand-name {
+        font-size: .82rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+  <script>
+function irA(id){ document.querySelectorAll('.pantalla').forEach(function(p){p.style.display='none'}); var el=document.getElementById(id); if(el){el.style.display='block'}; window.scrollTo(0,0); }
+  </script>
+</head>
+<body>
+  <nav class="topbar" aria-label="Navegación principal de EDÉN">
+    <div class="topbar-inner">
+      <div class="brand-row">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">YF</div>
+          <div>
+            <span class="brand-name">YERUZZA FORGE</span>
+            <span class="brand-product">EDÉN · Oficina virtual de gestión</span>
+          </div>
+        </div>
+        <span class="environment">Prototipo navegable</span>
+      </div>
+      <div class="nav-modules">
+        <button class="nav-btn active" type="button" onclick="irA('login')" aria-current="page">Inicio de sesión</button>
+        <button class="nav-btn" type="button" onclick="irA('panel-principal')">Panel principal y reportes</button>
+        <button class="nav-btn" type="button" onclick="irA('clientes-solicitudes')">Clientes y solicitudes</button>
+        <button class="nav-btn" type="button" onclick="irA('cotizaciones-documentos')">Cotizaciones y documentos</button>
+        <button class="nav-btn" type="button" onclick="irA('catalogo-costos')">Catálogo de costos</button>
+        <button class="nav-btn" type="button" onclick="irA('proyectos-presupuestos')">Proyectos y presupuestos</button>
+        <button class="nav-btn" type="button" onclick="irA('control-gastos')">Control de gastos</button>
+        <button class="nav-btn" type="button" onclick="irA('coordinacion-comunicaciones')">Coordinación y tareas</button>
+        <button class="nav-btn" type="button" onclick="irA('configuracion-auditoria')">Configuración y auditoría</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-main">
+    <section id="login" class="pantalla" aria-labelledby="login-title">
+      <header class="screen-header">
+        <div class="screen-header-copy">
+          <div class="eyebrow">Acceso interno · EDÉN</div>
+          <h1 id="login-title">Tu operación, en un solo lugar.</h1>
+          <p class="screen-description">
+            Ingresa para gestionar solicitudes, calcular costos, preparar cotizaciones y dar seguimiento a proyectos y gastos con trazabilidad.
+          </p>
+        </div>
+        <div class="header-tags" aria-label="Características del acceso">
+          <span class="badge success">Uso interno</span>
+          <span class="badge info">Administrador y Gerente</span>
+          <span class="badge">Versión demo 1.0</span>
+        </div>
+      </header>
+
+      <div class="login-layout">
+        <div class="stack auth-column">
+          <article class="card auth-card" aria-labelledby="auth-title">
+            <div class="card-heading">
+              <div>
+                <h2 id="auth-title">Inicia sesión</h2>
+                <p>Utiliza la cuenta asignada por el administrador.</p>
+              </div>
+              <div class="lock-icon" aria-hidden="true">●</div>
+            </div>
+
+            <form onsubmit="return false;" aria-label="Formulario de inicio de sesión">
+              <div class="field">
+                <label for="email">Correo corporativo</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  value="gerente@eden.demo"
+                  placeholder="nombre@empresa.com"
+                  autocomplete="username"
+                  required
+                >
+                <p class="field-hint">El correo identifica tu rol y permisos dentro de EDÉN.</p>
+              </div>
+
+              <div class="field">
+                <label for="password">Contraseña</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Ingresa tu contraseña"
+                  autocomplete="current-password"
+                  minlength="8"
+                  required
+                >
+              </div>
+
+              <div class="form-options">
+                <label class="check-label" for="remember">
+                  <input id="remember" name="remember" type="checkbox">
+                  Mantener mi sesión en este equipo
+                </label>
+                <button class="text-button" type="button" title="La recuperación se gestionará con el administrador">
+                  ¿Problemas para ingresar?
+                </button>
+              </div>
+
+              <button class="btn btn-primary btn-block" type="submit">
+                Ingresar a EDÉN
+                <span class="btn-arrow" aria-hidden="true">→</span>
+              </button>
+
+              <p class="form-footnote">
+                <span aria-hidden="true">◆</span>
+                <span>
+                  <strong>Acceso protegido.</strong>
+                  No compartas tus credenciales ni ingreses desde equipos de uso público.
+                </span>
+              </p>
+            </form>
+
+            <div class="demo-divider">Cuentas de demostración</div>
+
+            <div class="demo-accounts" aria-label="Perfiles disponibles en el prototipo">
+              <div class="demo-account">
+                <div class="avatar" aria-hidden="true">AD</div>
+                <div class="demo-account-copy">
+                  <strong>Administrador</strong>
+                  <span>admin@eden.demo</span>
+                </div>
+                <span class="badge success">Control total</span>
+              </div>
+              <div class="demo-account">
+                <div class="avatar" aria-hidden="true">GE</div>
+                <div class="demo-account-copy">
+                  <strong>Gerente</strong>
+                  <span>gerente@eden.demo</span>
+                </div>
+                <span class="badge info">Operación</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card security-card" aria-labelledby="security-title">
+            <h3 id="security-title">Antes de comenzar</h3>
+            <ul class="security-list">
+              <li>Los clientes externos no tienen acceso al panel interno.</li>
+              <li>Las acciones quedarán asociadas al usuario para facilitar la auditoría.</li>
+              <li>La verificación adicional y la recuperación automatizada se habilitarán al integrar seguridad.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="stack">
+          <article class="card operations-card" aria-labelledby="operations-title">
+            <header class="operations-header">
+              <div>
+                <h2 id="operations-title">Así se verá tu operación</h2>
+                <p>Vista previa del trabajo comercial y operativo del día.</p>
+              </div>
+              <span class="demo-label">DATOS DE DEMOSTRACIÓN</span>
+            </header>
+
+            <div class="metrics-grid" aria-label="Indicadores operativos de demostración">
+              <div class="metric">
+                <div class="metric-top">
+                  <span class="metric-icon" aria-hidden="true">01</span>
+                  <span class="badge info">Entrada</span>
+                </div>
+                <strong class="metric-value">12</strong>
+                <span class="metric-label">Solicitudes abiertas</span>
+                <span class="metric-change">3 recibidas hoy</span>
+              </div>
+
+              <div class="metric">
+                <div class="metric-top">
+                  <span class="metric-icon" aria-hidden="true">02</span>
+                  <span class="badge warning">Pendiente</span>
+                </div>
+                <strong class="metric-value">5</strong>
+                <span class="metric-label">Cotizaciones por enviar</span>
+                <span class="metric-change">2 requieren revisión</span>
+              </div>
+
+              <div class="metric">
+                <div class="metric-top">
+                  <span class="metric-icon" aria-hidden="true">03</span>
+                  <span class="badge success">Activo</span>
+                </div>
+                <strong class="metric-value">4</strong>
+                <span class="metric-label">Proyectos en ejecución</span>
+                <span class="metric-change">Todos con responsable</span>
+              </div>
+
+              <div class="metric">
+                <div class="metric-top">
+                  <span class="metric-icon" aria-hidden="true">04</span>
+                  <span class="badge danger">Revisar</span>
+                </div>
+                <strong class="metric-value">2</strong>
+                <span class="metric-label">Gastos sin comprobante</span>
+                <span class="metric-change">Soporte pendiente</span>
+              </div>
+            </div>
+
+            <div class="table-block">
+              <div class="table-heading">
+                <h3>Actividad reciente</h3>
+                <span>Corte demo · Hoy, 08:30</span>
+              </div>
+
+              <div class="table-responsive">
+                <table>
+                  <caption>Solicitudes, cotizaciones y proyectos actualizados recientemente</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Registro</th>
+                      <th scope="col">Cliente</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Actualización</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="record-id">SOL-0248</span>
+                        <span class="record-sub">Solicitud</span>
+                      </td>
+                      <td>
+                        <span class="record-client">Grupo Alameda</span>
+                        <span class="record-sub">Adecuación de oficinas</span>
+                      </td>
+                      <td>Laura Méndez</td>
+                      <td><span class="badge warning">Costos en revisión</span></td>
+                      <td>Hace 18 min</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="record-id">SOL-0247</span>
+                        <span class="record-sub">Solicitud</span>
+                      </td>
+                      <td>
+                        <span class="record-client">Talleres del Norte</span>
+                        <span class="record-sub">Mantenimiento integral</span>
+                      </td>
+                      <td>Diego Ríos</td>
+                      <td><span class="badge info">Lista para cotizar</span></td>
+                      <td>Hace 42 min</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="record-id">COT-0189</span>
+                        <span class="record-sub">Cotización</span>
+                      </td>
+                      <td>
+                        <span class="record-client">Casa Prisma</span>
+                        <span class="record-sub">Propuesta comercial v2</span>
+                      </td>
+                      <td>Laura Méndez</td>
+                      <td><span class="badge warning">Espera de aprobación</span></td>
+                      <td>Ayer, 16:20</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="record-id">PROY-0063</span>
+                        <span class="record-sub">Proyecto</span>
+                      </td>
+                      <td>
+                        <span class="record-client">Comercial Natura</span>
+                        <span class="record-sub">Ejecución por etapas</span>
+                      </td>
+                      <td>Diego Ríos</td>
+                      <td><span class="badge success">En ejecución</span></td>
+                      <td>Ayer, 14:05</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+
+          <aside class="card access-note" aria-label="Información sobre el prototipo">
+            <div class="access-note-number" aria-hidden="true">i</div>
+            <div>
+              <h3>Vista previa del flujo de trabajo</h3>
+              <p>
+                Los indicadores y registros mostrados son ilustrativos. El acceso real se conectará con autenticación, permisos por rol y registro de auditoría antes de la publicación.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <footer class="screen-footer">
+        <span>EDÉN · Solicitudes, cotizaciones, proyectos y gastos en una sola oficina virtual.</span>
+        <span class="footer-status">Base del prototipo disponible</span>
+      </footer>
+    </section>
+  
+<section id='panel-principal' class='pantalla' style='display:none'>
+<style>
+.pp-panel{--pp-ink:#17231f;--pp-muted:#64716b;--pp-line:#dfe6e2;--pp-soft:#f4f7f5;--pp-green:#176b4d;--pp-amber:#9a5b08;--pp-red:#a43b3b;color:var(--pp-ink);padding:22px;max-width:1500px;margin:auto}
+.pp-panel *{box-sizing:border-box}.pp-panel button,.pp-panel input,.pp-panel select{font:inherit}
+.pp-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:16px}
+.pp-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--pp-green);font-weight:800;margin-bottom:5px}
+.pp-head h1{margin:0 0 6px;font-size:28px}.pp-head p{margin:0;color:var(--pp-muted)}
+.pp-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.pp-btn{border:1px solid var(--pp-line);background:#fff;color:var(--pp-ink);border-radius:8px;padding:9px 13px;cursor:pointer;font-weight:700}
+.pp-btn:hover{border-color:var(--pp-green)}.pp-btn.pp-primary{background:var(--pp-green);color:#fff;border-color:var(--pp-green)}
+.pp-btn:disabled{opacity:.48;cursor:not-allowed}.pp-link{border:0;background:none;color:var(--pp-green);padding:0;font-weight:800;cursor:pointer;text-align:left}
+.pp-meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.pp-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:750;background:#e9efec;color:#405049;white-space:nowrap}
+.pp-badge.pp-ok{background:#e2f3e9;color:#176143}.pp-badge.pp-warn{background:#fff0d7;color:#875006}.pp-badge.pp-bad{background:#fde7e5;color:#963737}.pp-badge.pp-info{background:#e5effa;color:#285b88}
+.pp-notice{display:flex;justify-content:space-between;gap:14px;padding:11px 14px;border:1px solid #ead6ad;background:#fff9ec;border-radius:10px;margin-bottom:16px;font-size:13px}
+.pp-filters{display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto auto;gap:10px;align-items:end;padding:13px;background:var(--pp-soft);border:1px solid var(--pp-line);border-radius:10px;margin-bottom:16px}
+.pp-field label{display:block;font-size:12px;font-weight:750;color:var(--pp-muted);margin-bottom:5px}.pp-field input,.pp-field select{width:100%;padding:8px;border:1px solid #cbd6d0;border-radius:7px;background:#fff;color:var(--pp-ink)}
+.pp-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:14px}.pp-kpi{border:1px solid var(--pp-line);border-radius:10px;padding:15px;background:#fff}
+.pp-kpi h3{font-size:12px;color:var(--pp-muted);margin:0 0 8px;font-weight:750}.pp-kpi strong{display:block;font-size:26px;line-height:1.1;margin-bottom:7px}.pp-kpi small{color:var(--pp-muted);font-size:12px}
+.pp-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.pp-card{background:#fff;border:1px solid var(--pp-line);border-radius:11px;padding:16px;min-width:0}.pp-span7{grid-column:span 7}.pp-span5{grid-column:span 5}.pp-span12{grid-column:span 12}
+.pp-cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.pp-cardhead h2{font-size:16px;margin:0}.pp-cardhead p{font-size:12px;color:var(--pp-muted);margin:3px 0 0}
+.pp-tablewrap{overflow-x:auto}.pp-table{width:100%;border-collapse:collapse;font-size:13px}.pp-table th{text-align:left;color:var(--pp-muted);font-size:11px;text-transform:uppercase;letter-spacing:.04em;background:var(--pp-soft);padding:9px;border-bottom:1px solid var(--pp-line);white-space:nowrap}.pp-table td{padding:10px 9px;border-bottom:1px solid #edf1ef;vertical-align:middle}.pp-table tr:last-child td{border-bottom:0}.pp-table .pp-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.pp-sub{display:block;color:var(--pp-muted);font-size:11px;margin-top:3px}
+.pp-funnel{display:grid;gap:11px;margin:5px 0 18px}.pp-frow{display:grid;grid-template-columns:135px 1fr 32px;gap:8px;align-items:center;font-size:12px}.pp-track{height:8px;background:#e8eeeb;border-radius:8px;overflow:hidden}.pp-fill{height:100%;background:var(--pp-green);border-radius:8px}
+.pp-money{display:grid;grid-template-columns:1fr 1fr;gap:9px}.pp-money div{background:var(--pp-soft);padding:10px;border-radius:8px}.pp-money span{display:block;font-size:11px;color:var(--pp-muted);margin-bottom:4px}.pp-money strong{font-size:17px}
+.pp-tasks{list-style:none;padding:0;margin:0;display:grid;gap:10px}.pp-tasks li{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:start;padding-bottom:10px;border-bottom:1px solid #edf1ef}.pp-tasks li:last-child{border:0;padding-bottom:0}.pp-dot{width:9px;height:9px;border-radius:50%;background:var(--pp-green);margin-top:5px}.pp-dot.pp-dotalert{background:#c47a16}.pp-tasks p{margin:0;font-size:13px}.pp-tasks small{color:var(--pp-muted);font-size:11px}.pp-date{font-size:11px;white-space:nowrap;color:var(--pp-muted)}
+.pp-reportbar{display:flex;gap:9px;align-items:end;flex-wrap:wrap;padding:11px;background:var(--pp-soft);border-radius:8px;margin-bottom:12px}.pp-reportbar .pp-field{min-width:155px}.pp-foot{display:flex;justify-content:space-between;gap:12px;color:var(--pp-muted);font-size:11px;margin-top:14px}.pp-empty{padding:10px;background:#f8faf9;border-radius:7px;color:var(--pp-muted);font-size:12px;margin-top:12px}
+@media(max-width:1050px){.pp-kpis{grid-template-columns:repeat(2,1fr)}.pp-span7,.pp-span5{grid-column:span 12}.pp-filters{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.pp-panel{padding:14px}.pp-head{display:block}.pp-actions{justify-content:flex-start;margin-top:12px}.pp-kpis{grid-template-columns:1fr}.pp-filters{grid-template-columns:1fr}.pp-notice,.pp-foot{display:block}.pp-money{grid-template-columns:1fr}.pp-frow{grid-template-columns:105px 1fr 28px}}
+</style>
+<div class="pp-panel">
+  <header class="pp-head">
+    <div>
+      <div class="pp-eyebrow">EDÉN · Oficina virtual</div>
+      <h1>Panel principal y reportes</h1>
+      <p>De la solicitud a la cotización, con costos, proyectos y gastos bajo control.</p>
+      <div class="pp-meta">
+        <span class="pp-badge pp-info">Datos demo · USD</span>
+        <span class="pp-badge">Corte: 18 jun 2025 · 09:30</span>
+        <span class="pp-badge">Vista: Gerente</span>
+      </div>
+    </div>
+    <div class="pp-actions">
+      <button class="pp-btn" type="button" onclick="irA('cotizaciones')">Nueva cotización</button>
+      <button class="pp-btn pp-primary" type="button" onclick="irA('solicitudes')">+ Nueva solicitud</button>
+    </div>
+  </header>
+
+  <div class="pp-notice">
+    <div><strong>Operación por carga manual.</strong> Telegram está pendiente de integrar; las solicitudes recibidas por otros canales se registran desde Solicitudes.</div>
+    <span class="pp-badge pp-warn">3 gastos requieren comprobante</span>
+  </div>
+
+  <form class="pp-filters" onsubmit="return false" aria-label="Filtros del panel">
+    <div class="pp-field"><label for="pp-desde">Desde</label><input id="pp-desde" type="date" value="2025-06-01"></div>
+    <div class="pp-field"><label for="pp-hasta">Hasta</label><input id="pp-hasta" type="date" value="2025-06-18"></div>
+    <div class="pp-field"><label for="pp-responsable">Responsable</label><select id="pp-responsable"><option>Todos</option><option selected>Gerente</option><option>Administrador</option></select></div>
+    <div class="pp-field"><label for="pp-estado">Estado operativo</label><select id="pp-estado"><option>Todos</option><option>Solicitudes abiertas</option><option>Cotizaciones pendientes</option><option>Proyectos con desviación</option></select></div>
+    <button class="pp-btn pp-primary" type="submit">Aplicar</button>
+    <button class="pp-btn" type="reset">Limpiar</button>
+  </form>
+
+  <div class="pp-kpis">
+    <article class="pp-kpi"><h3>Solicitudes abiertas</h3><strong>12</strong><small>4 nuevas esta semana · 2 prioritarias</small></article>
+    <article class="pp-kpi"><h3>Cotizaciones por responder</h3><strong>7</strong><small>2 vencen en las próximas 48 h</small></article>
+    <article class="pp-kpi"><h3>Conversión del período</h3><strong>42,9%</strong><small>6 aceptadas de 14 cotizaciones cerradas</small></article>
+    <article class="pp-kpi"><h3>Ejecución presupuestaria</h3><strong>77,2%</strong><small>$31.640 ejecutados de $41.010</small></article>
+    <article class="pp-kpi"><h3>Gastos con soporte</h3><strong>92,5%</strong><small>37 de 40 · 3 pendientes de respaldo</small></article>
+  </div>
+
+  <div class="pp-grid">
+    <article class="pp-card pp-span7">
+      <div class="pp-cardhead">
+        <div><h2>Solicitudes recientes</h2><p>Priorizadas por fecha de respuesta y estado.</p></div>
+        <button class="pp-link" type="button" onclick="irA('solicitudes')">Ver todas →</button>
+      </div>
+      <div class="pp-tablewrap">
+        <table class="pp-table">
+          <thead><tr><th>Solicitud / cliente</th><th>Servicio</th><th>Ingreso</th><th>Estado</th><th>Responsable</th></tr></thead>
+          <tbody>
+            <tr><td><button class="pp-link" onclick="irA('solicitudes')">SOL-0251</button><span class="pp-sub">Lucía Prado · Local Boho</span></td><td>Diseño de vitrina</td><td>18 jun · 08:40<span class="pp-sub">Manual</span></td><td><span class="pp-badge pp-warn">Por cotizar</span></td><td>Gerente</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('solicitudes')">SOL-0250</button><span class="pp-sub">Diego Robles · Residencial Roble</span></td><td>Renovación de baño</td><td>17 jun · 16:15<span class="pp-sub">Manual</span></td><td><span class="pp-badge pp-info">En cálculo</span></td><td>Gerente</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('solicitudes')">SOL-0249</button><span class="pp-sub">Clínica Senda</span></td><td>Mantenimiento de mobiliario</td><td>17 jun · 10:05<span class="pp-sub">Manual</span></td><td><span class="pp-badge pp-ok">Cotizada</span></td><td>Gerente</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('solicitudes')">SOL-0248</button><span class="pp-sub">Oficinas Nébula</span></td><td>Adecuación eléctrica</td><td>14 jun · 12:30<span class="pp-sub">Manual</span></td><td><span class="pp-badge pp-ok">Convertida</span></td><td>Administrador</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('solicitudes')">SOL-0247</button><span class="pp-sub">Café Origen</span></td><td>Mobiliario y acabados</td><td>12 jun · 09:20<span class="pp-sub">Manual</span></td><td><span class="pp-badge pp-ok">Convertida</span></td><td>Gerente</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="pp-card pp-span5">
+      <div class="pp-cardhead"><div><h2>Embudo y posición financiera</h2><p>Acumulado del período seleccionado.</p></div></div>
+      <div class="pp-funnel" aria-label="Embudo comercial">
+        <div class="pp-frow"><span>Solicitudes recibidas</span><div class="pp-track"><div class="pp-fill" style="width:100%"></div></div><strong>24</strong></div>
+        <div class="pp-frow"><span>Cotizaciones cerradas</span><div class="pp-track"><div class="pp-fill" style="width:58%"></div></div><strong>14</strong></div>
+        <div class="pp-frow"><span>Cotizaciones aceptadas</span><div class="pp-track"><div class="pp-fill" style="width:25%"></div></div><strong>6</strong></div>
+        <div class="pp-frow"><span>Proyectos iniciados</span><div class="pp-track"><div class="pp-fill" style="width:17%"></div></div><strong>4</strong></div>
+      </div>
+      <div class="pp-money">
+        <div><span>Presupuesto activo</span><strong>$41.010</strong></div>
+        <div><span>Gasto real registrado</span><strong>$31.640</strong></div>
+        <div><span>Saldo por ejecutar</span><strong>$9.370</strong></div>
+        <div><span>Pipeline abierto</span><strong>$37.230</strong></div>
+      </div>
+    </article>
+
+    <article class="pp-card pp-span12">
+      <div class="pp-cardhead">
+        <div><h2>Proyectos: presupuesto vs. real</h2><p>La desviación corresponde a la proyección de cierre, no solo al gasto actual.</p></div>
+        <button class="pp-link" type="button" onclick="irA('proyectos')">Abrir proyectos →</button>
+      </div>
+      <div class="pp-tablewrap">
+        <table class="pp-table">
+          <thead><tr><th>Proyecto / cliente</th><th>Estado</th><th>Avance</th><th class="pp-num">Presupuesto</th><th class="pp-num">Gasto real</th><th class="pp-num">Cierre proyectado</th><th class="pp-num">Desviación</th><th>Próximo hito</th></tr></thead>
+          <tbody>
+            <tr><td><button class="pp-link" onclick="irA('proyectos')">PRY-0038 · Remodelación cocina</button><span class="pp-sub">Residencial Altavista · Mariana Suárez</span></td><td><span class="pp-badge pp-info">En ejecución</span></td><td>68%<div class="pp-track"><div class="pp-fill" style="width:68%"></div></div></td><td class="pp-num">$18.400</td><td class="pp-num">$12.580</td><td class="pp-num">$18.100</td><td class="pp-num"><span class="pp-badge pp-ok">−1,6%</span></td><td>Instalación de cubierta<span class="pp-sub">20 jun</span></td></tr>
+            <tr><td><button class="pp-link" onclick="irA('proyectos')">PRY-0037 · Adecuación eléctrica</button><span class="pp-sub">Oficinas Nébula</span></td><td><span class="pp-badge pp-info">En ejecución</span></td><td>72%<div class="pp-track"><div class="pp-fill" style="width:72%"></div></div></td><td class="pp-num">$12.750</td><td class="pp-num">$8.940</td><td class="pp-num">$12.420</td><td class="pp-num"><span class="pp-badge pp-ok">−2,6%</span></td><td>Pruebas de tablero<span class="pp-sub">19 jun</span></td></tr>
+            <tr><td><button class="pp-link" onclick="irA('proyectos')">PRY-0036 · Mobiliario y acabados</button><span class="pp-sub">Café Origen</span></td><td><span class="pp-badge pp-warn">Requiere atención</span></td><td>94%<div class="pp-track"><div class="pp-fill" style="width:94%;background:#b66b12"></div></div></td><td class="pp-num">$9.860</td><td class="pp-num">$10.120</td><td class="pp-num">$10.460</td><td class="pp-num"><span class="pp-badge pp-warn">+6,1%</span></td><td>Aprobar ajuste de acabados<span class="pp-sub">Hoy · 15:00</span></td></tr>
+            <tr><td><button class="pp-link" onclick="irA('proyectos')">PRY-0035 · Señalización interior</button><span class="pp-sub">Clínica Senda</span></td><td><span class="pp-badge pp-ok">Completado</span></td><td>100%<div class="pp-track"><div class="pp-fill" style="width:100%"></div></div></td><td class="pp-num">$6.420</td><td class="pp-num">$6.180</td><td class="pp-num">$6.180</td><td class="pp-num"><span class="pp-badge pp-ok">−3,7%</span></td><td>Acta de cierre<span class="pp-sub">Archivada 16 jun</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="pp-card pp-span7">
+      <div class="pp-cardhead">
+        <div><h2>Cotizaciones que requieren seguimiento</h2><p>Documentos abiertos y aceptaciones recientes.</p></div>
+        <button class="pp-link" type="button" onclick="irA('cotizaciones')">Ver cotizaciones →</button>
+      </div>
+      <div class="pp-tablewrap">
+        <table class="pp-table">
+          <thead><tr><th>Documento</th><th>Cliente / servicio</th><th class="pp-num">Importe</th><th>Estado</th><th>Vigencia</th></tr></thead>
+          <tbody>
+            <tr><td><button class="pp-link" onclick="irA('cotizaciones')">COT-0118</button><span class="pp-sub">Versión 2</span></td><td>Clínica Senda<span class="pp-sub">Mantenimiento de mobiliario</span></td><td class="pp-num">$6.480</td><td><span class="pp-badge pp-info">Enviada</span></td><td>20 jun<span class="pp-sub">2 días</span></td></tr>
+            <tr><td><button class="pp-link" onclick="irA('cotizaciones')">COT-0117</button><span class="pp-sub">Borrador</span></td><td>Estudio Lumen<span class="pp-sub">Archivo móvil</span></td><td class="pp-num">$8.450</td><td><span class="pp-badge pp-warn">En elaboración</span></td><td>Sin enviar</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('cotizaciones')">COT-0116</button><span class="pp-sub">Versión 1</span></td><td>Hotel Arrayán<span class="pp-sub">Señalización integral</span></td><td class="pp-num">$22.300</td><td><span class="pp-badge pp-info">Enviada</span></td><td>19 jun<span class="pp-sub">Vence mañana</span></td></tr>
+            <tr><td><button class="pp-link" onclick="irA('cotizaciones')">COT-0115</button><span class="pp-sub">Aceptada 15 jun</span></td><td>Residencial Altavista<span class="pp-sub">Remodelación de cocina</span></td><td class="pp-num">$18.400</td><td><span class="pp-badge pp-ok">Aceptada</span></td><td>PRY-0038</td></tr>
+            <tr><td><button class="pp-link" onclick="irA('cotizaciones')">COT-0114</button><span class="pp-sub">Aceptada 14 jun</span></td><td>Oficinas Nébula<span class="pp-sub">Adecuación eléctrica</span></td><td class="pp-num">$12.750</td><td><span class="pp-badge pp-ok">Aceptada</span></td><td>PRY-0037</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="pp-card pp-span5">
+      <div class="pp-cardhead"><div><h2>Coordinación de hoy</h2><p>Compromisos internos y alertas de operación.</p></div><button class="pp-link" onclick="irA('coordinacion')">Agenda →</button></div>
+      <ul class="pp-tasks">
+        <li><span class="pp-dot pp-dotalert"></span><div><p><strong>Revisar sobrecosto de Café Origen</strong></p><small>Gerente · PRY-0036 · Decisión sobre acabados</small></div><span class="pp-date">15:00</span></li>
+        <li><span class="pp-dot"></span><div><p><strong>Validar costos de Estudio Lumen</strong></p><small>Administrador · COT-0117 · Actualizar herrajes</small></div><span class="pp-date">16:30</span></li>
+        <li><span class="pp-dot pp-dotalert"></span><div><p><strong>Solicitar 3 comprobantes de gasto</strong></p><small>Gerente · GAS-0312, GAS-0309 y GAS-0304</small></div><span class="pp-date">Hoy</span></li>
+        <li><span class="pp-dot"></span><div><p><strong>Confirmar prueba de tablero</strong></p><small>Oficinas Nébula · Ventana de trabajo coordinada</small></div><span class="pp-date">19 jun</span></li>
+      </ul>
+      <div class="pp-empty">Último gasto registrado: <strong>GAS-0312 · $1.240 · Café Origen</strong>, pendiente de comprobante. <button class="pp-link" onclick="irA('gastos')">Revisar gastos →</button></div>
+    </article>
+
+    <article class="pp-card pp-span12" id="pp-reportes">
+      <div class="pp-cardhead">
+        <div><h2>Reporte operativo del período</h2><p>Indicadores calculados con datos demo; las referencias marcadas * están pendientes de validación.</p></div>
+        <span class="pp-badge pp-info">01–18 jun 2025</span>
+      </div>
+      <form class="pp-reportbar" onsubmit="return false" aria-label="Configuración del reporte">
+        <div class="pp-field"><label for="pp-tipo-reporte">Reporte</label><select id="pp-tipo-reporte"><option>Resumen operativo</option><option>Conversión comercial</option><option>Presupuesto vs. real</option><option>Control de gastos</option></select></div>
+        <div class="pp-field"><label for="pp-agrupar">Agrupar por</label><select id="pp-agrupar"><option>Período completo</option><option>Semana</option><option>Responsable</option><option>Cliente</option></select></div>
+        <button class="pp-btn pp-primary" type="submit">Actualizar reporte</button>
+        <button class="pp-btn" type="button" onclick="window.print()">Imprimir</button>
+        <button class="pp-btn" type="button" disabled title="La exportación CSV se habilitará en una iteración posterior">Exportar CSV · próximamente</button>
+      </form>
+      <div class="pp-tablewrap">
+        <table class="pp-table">
+          <thead><tr><th>Indicador</th><th class="pp-num">Resultado</th><th>Referencia</th><th>Muestra / fuente</th><th>Lectura</th></tr></thead>
+          <tbody>
+            <tr><td>Tiempo solicitud → cotización</td><td class="pp-num"><strong>18,6 h</strong></td><td>&lt;24 h *</td><td>14 cotizaciones cerradas</td><td><span class="pp-badge pp-ok">Dentro de referencia</span></td></tr>
+            <tr><td>Conversión cotización → proyecto</td><td class="pp-num"><strong>42,9%</strong></td><td>Baseline pendiente</td><td>6 aceptadas / 14 cerradas</td><td><span class="pp-badge pp-info">Iniciar medición histórica</span></td></tr>
+            <tr><td>Desviación máxima proyectada</td><td class="pp-num"><strong>+6,1%</strong></td><td>≤ ±10% *</td><td>PRY-0036 · Café Origen</td><td><span class="pp-badge pp-warn">Requiere seguimiento</span></td></tr>
+            <tr><td>Gastos con soporte documental</td><td class="pp-num"><strong>92,5%</strong></td><td>Meta por definir</td><td>37 con soporte / 40 gastos</td><td><span class="pp-badge pp-warn">3 comprobantes pendientes</span></td></tr>
+            <tr><td>Error de cálculo en costos</td><td class="pp-num"><strong>7,8%</strong></td><td>≤10% *</td><td>9 cotizaciones contrastadas</td><td><span class="pp-badge pp-ok">Dentro de referencia</span></td></tr>
+            <tr><td>Tiempo de primera respuesta</td><td class="pp-num"><strong>2,8 h</strong></td><td>&lt;4 h *</td><td>24 solicitudes recibidas</td><td><span class="pp-badge pp-ok">Dentro de referencia</span></td></tr>
+            <tr><td>Disponibilidad del servicio</td><td class="pp-num"><strong>Sin medir</strong></td><td>≥99% *</td><td>Monitoreo aún no instrumentado</td><td><span class="pp-badge">Baseline pendiente</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+
+  <footer class="pp-foot">
+    <span>Prototipo EDÉN · Importes en USD, impuestos y jurisdicción pendientes de confirmar.</span>
+    <span>Los baselines se capturan desde el primer día · No usar datos reales hasta integrar autenticación y control de acceso.</span>
+  </footer>
+</div>
+</section>
+<section id='clientes-solicitudes' class='pantalla' style='display:none'>
+<style>
+.cs-wrap{display:grid;gap:16px}.cs-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.cs-head h1{margin:4px 0;font-size:26px}.cs-head p{margin:0;color:#64748b;max-width:760px}.cs-eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0f766e}.cs-actions{display:flex;gap:8px;flex-wrap:wrap}.cs-btn{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border:1px solid #cbd5e1;border-radius:8px;background:#fff;color:#1e293b;font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}.cs-btn:hover{background:#f1f5f9}.cs-btn-primary{background:#0f766e;border-color:#0f766e;color:#fff}.cs-btn-primary:hover{background:#115e59}.cs-btn:disabled{opacity:.48;cursor:not-allowed}.cs-btn-small{padding:5px 8px;font-size:12px}.cs-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.cs-card{border:1px solid #dbe3ec;border-radius:10px;background:#fff;padding:14px}.cs-kpi-label{font-size:12px;color:#64748b}.cs-kpi-value{display:block;font-size:25px;font-weight:750;margin:5px 0}.cs-kpi-note{font-size:12px;color:#64748b}.cs-banner{border-left:4px solid #d97706;background:#fffbeb;padding:12px 14px;border-radius:6px;font-size:13px;line-height:1.5}.cs-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,.8fr);gap:14px;align-items:start}.cs-card h2,.cs-card h3{margin:0 0 10px}.cs-card h2{font-size:17px}.cs-card h3{font-size:14px}.cs-sub{font-size:12px;color:#64748b;margin:-4px 0 12px}.cs-filters{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:8px;margin-bottom:12px}.cs-filters input,.cs-filters select,.cs-form input,.cs-form select,.cs-form textarea{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:7px;padding:8px 9px;background:#fff;color:#1e293b;font:inherit;font-size:13px}.cs-tablebox{overflow:auto}.cs-table{width:100%;border-collapse:collapse;font-size:12px;min-width:850px}.cs-table caption{text-align:left;font-weight:700;margin-bottom:8px}.cs-table th{background:#f8fafc;color:#475569;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.03em}.cs-table th,.cs-table td{padding:9px 8px;border-bottom:1px solid #e2e8f0;vertical-align:top}.cs-table tbody tr:hover{background:#f8fafc}.cs-table tr.cs-selected{background:#ecfdf5}.cs-strong{font-weight:700;color:#0f172a}.cs-muted{color:#64748b}.cs-nowrap{white-space:nowrap}.cs-badge{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}.cs-new{background:#e0f2fe;color:#075985}.cs-progress{background:#fef3c7;color:#92400e}.cs-ready{background:#dcfce7;color:#166534}.cs-wait{background:#ffedd5;color:#9a3412}.cs-quote{background:#ede9fe;color:#5b21b6}.cs-done{background:#e2e8f0;color:#334155}.cs-detail{display:grid;gap:12px}.cs-detail-head{display:flex;justify-content:space-between;gap:8px}.cs-dl{display:grid;grid-template-columns:105px 1fr;gap:7px 10px;margin:0;font-size:12px}.cs-dl dt{color:#64748b}.cs-dl dd{margin:0;font-weight:550}.cs-scope{font-size:13px;line-height:1.5;background:#f8fafc;padding:10px;border-radius:7px;margin:0}.cs-money{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cs-money div{background:#f8fafc;padding:8px;border-radius:6px;text-align:center}.cs-money small{display:block;color:#64748b}.cs-money b{display:block;margin-top:3px}.cs-checks{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:12px}.cs-checks li:before{content:"✓";color:#15803d;font-weight:800;margin-right:7px}.cs-checks li.cs-pending:before{content:"!";color:#b45309}.cs-timeline{list-style:none;margin:0;padding:0 0 0 12px;border-left:2px solid #dbe3ec;display:grid;gap:9px;font-size:12px}.cs-timeline b{display:block}.cs-timeline span{color:#64748b}.cs-form{display:grid;gap:12px}.cs-formgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.cs-field{display:grid;gap:5px;font-size:12px;font-weight:650;color:#334155}.cs-field small{font-weight:400;color:#64748b}.cs-wide{grid-column:1/-1}.cs-form textarea{min-height:82px;resize:vertical}.cs-check{font-size:12px;display:flex;gap:8px;align-items:flex-start}.cs-foot{font-size:11px;color:#64748b;line-height:1.5}.cs-client-contact{display:block;margin-top:3px}.cs-summary{display:flex;gap:8px;flex-wrap:wrap;font-size:12px;color:#475569}.cs-summary span{background:#f1f5f9;border-radius:6px;padding:5px 8px}@media(max-width:1050px){.cs-layout{grid-template-columns:1fr}.cs-kpis{grid-template-columns:repeat(2,1fr)}.cs-formgrid{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.cs-kpis,.cs-formgrid{grid-template-columns:1fr}.cs-filters{grid-template-columns:1fr}.cs-wide{grid-column:auto}.cs-money{grid-template-columns:1fr}}
+</style>
+<div class="cs-wrap">
+  <header class="cs-head">
+    <div>
+      <div class="cs-eyebrow">EDÉN · Operación comercial · RF1</div>
+      <h1>Clientes y solicitudes de cotización</h1>
+      <p>Registro interno del requerimiento, datos de contacto, alcance, prioridad y trazabilidad hasta el cálculo de costos y la cotización.</p>
+    </div>
+    <div class="cs-actions">
+      <button class="cs-btn" type="button" onclick="irA('dashboard')">← Panel</button>
+      <button class="cs-btn" type="button" disabled title="Exportación CSV prevista como función Could">Exportar CSV</button>
+      <a class="cs-btn cs-btn-primary" href="#cs-nueva">+ Nueva solicitud</a>
+    </div>
+  </header>
+
+  <div class="cs-summary">
+    <span>Datos ficticios de demostración</span>
+    <span>Corte: 18 jun 2025 · 12:00</span>
+    <span>Vista: Gerente</span>
+    <span>Clientes externos: sin acceso al panel</span>
+  </div>
+
+  <div class="cs-kpis">
+    <article class="cs-card">
+      <span class="cs-kpi-label">Clientes registrados</span>
+      <strong class="cs-kpi-value">24</strong>
+      <span class="cs-kpi-note">18 con actividad en los últimos 90 días</span>
+    </article>
+    <article class="cs-card">
+      <span class="cs-kpi-label">Solicitudes activas</span>
+      <strong class="cs-kpi-value">7</strong>
+      <span class="cs-kpi-note">1 nueva · 4 en preparación · 2 listas/cotizadas</span>
+    </article>
+    <article class="cs-card">
+      <span class="cs-kpi-label">Listas para cotizar</span>
+      <strong class="cs-kpi-value">2</strong>
+      <span class="cs-kpi-note">Datos y cálculo de costos completos</span>
+    </article>
+    <article class="cs-card">
+      <span class="cs-kpi-label">Primera respuesta · mediana demo</span>
+      <strong class="cs-kpi-value">3 h 40 min</strong>
+      <span class="cs-kpi-note">Baseline real pendiente; medición desde el día 1</span>
+    </article>
+  </div>
+
+  <aside class="cs-banner">
+    <strong>Ingreso externo aún por decidir (A4).</strong> El MVP opera con <strong>carga manual del Gerente</strong>. Los orígenes Teléfono, Correo, Referido o Telegram solo documentan cómo llegó el pedido: no implican integración. El bot de Telegram corresponde a fase 2 y está pendiente de token, emparejamiento e integración.
+  </aside>
+
+  <div class="cs-layout">
+    <section class="cs-card" aria-labelledby="cs-solicitudes-title">
+      <h2 id="cs-solicitudes-title">Solicitudes recientes</h2>
+      <p class="cs-sub">8 registros · ordenados por recepción descendente · importes preliminares en moneda demo</p>
+      <form class="cs-filters" onsubmit="return false">
+        <input type="search" aria-label="Buscar solicitud" placeholder="Buscar ID, cliente o alcance…">
+        <select aria-label="Filtrar por estado">
+          <option>Todos los estados</option><option>Nueva</option><option>Pendiente de datos</option><option>En cálculo</option><option>Lista para cotizar</option><option>Cotizada</option><option>Convertida</option>
+        </select>
+        <select aria-label="Filtrar por responsable">
+          <option>Todos los responsables</option><option>Laura M.</option><option>Diego R.</option><option>Sin asignar</option>
+        </select>
+        <button class="cs-btn" type="submit">Filtrar</button>
+      </form>
+      <div class="cs-tablebox">
+        <table class="cs-table">
+          <caption>Bandeja operativa de solicitudes</caption>
+          <thead><tr><th>ID / recepción</th><th>Cliente y requerimiento</th><th>Origen</th><th>Responsable</th><th>Estimado*</th><th>Estado</th><th>Acción</th></tr></thead>
+          <tbody>
+            <tr class="cs-selected">
+              <td class="cs-nowrap"><b>SOL-0248</b><br><span class="cs-muted">18/06 · 09:20</span></td>
+              <td><span class="cs-strong">Hotel Brisa del Mar</span><br>Mantenimiento de áreas comunes<br><span class="cs-muted">Prioridad alta · inicio 01/07</span></td>
+              <td>Teléfono<br><span class="cs-muted">Carga manual</span></td><td>Laura M.</td><td class="cs-nowrap">$ 8.450</td>
+              <td><span class="cs-badge cs-ready">Lista para cotizar</span></td><td><button class="cs-btn cs-btn-small" type="button" aria-pressed="true">Detalle</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0247</b><br><span class="cs-muted">18/06 · 08:45</span></td>
+              <td><span class="cs-strong">Grupo Alameda</span><br>Adecuación de oficina administrativa<br><span class="cs-muted">Prioridad normal · inicio 08/07</span></td>
+              <td>Correo<br><span class="cs-muted">Carga manual</span></td><td>Diego R.</td><td class="cs-nowrap">$ 12.400</td>
+              <td><span class="cs-badge cs-progress">En cálculo</span></td><td><button class="cs-btn cs-btn-small" type="button" onclick="irA('costos')">Costos</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0246</b><br><span class="cs-muted">17/06 · 16:10</span></td>
+              <td><span class="cs-strong">Café Nácar</span><br>Instalación de iluminación<br><span class="cs-muted">Faltan medidas y fotografías</span></td>
+              <td>Telegram<br><span class="cs-muted">Registro manual</span></td><td>Laura M.</td><td class="cs-nowrap">$ 3.280</td>
+              <td><span class="cs-badge cs-wait">Pendiente de datos</span></td><td><button class="cs-btn cs-btn-small" type="button">Detalle</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0245</b><br><span class="cs-muted">17/06 · 11:30</span></td>
+              <td><span class="cs-strong">Clínica Altavista</span><br>Mantenimiento preventivo trimestral<br><span class="cs-muted">Tres sedes · alcance validado</span></td>
+              <td>Referido<br><span class="cs-muted">Carga manual</span></td><td>Diego R.</td><td class="cs-nowrap">$ 6.900</td>
+              <td><span class="cs-badge cs-ready">Lista para cotizar</span></td><td><button class="cs-btn cs-btn-small" type="button" onclick="irA('cotizaciones')">Cotizar</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0244</b><br><span class="cs-muted">16/06 · 15:05</span></td>
+              <td><span class="cs-strong">Estudio Lumbre</span><br>Adecuación de sala de reuniones<br><span class="cs-muted">Revisando dos alternativas</span></td>
+              <td>Correo<br><span class="cs-muted">Carga manual</span></td><td>Laura M.</td><td class="cs-nowrap">$ 4.750</td>
+              <td><span class="cs-badge cs-progress">En cálculo</span></td><td><button class="cs-btn cs-btn-small" type="button" onclick="irA('costos')">Costos</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0243</b><br><span class="cs-muted">16/06 · 10:40</span></td>
+              <td><span class="cs-strong">Logística del Sur</span><br>Revisión de instalaciones de depósito<br><span class="cs-muted">Relevamiento inicial sin asignar</span></td>
+              <td>Teléfono<br><span class="cs-muted">Carga manual</span></td><td>Sin asignar</td><td class="cs-nowrap">$ 9.600</td>
+              <td><span class="cs-badge cs-new">Nueva</span></td><td><button class="cs-btn cs-btn-small" type="button">Asignar</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0242</b><br><span class="cs-muted">15/06 · 13:15</span></td>
+              <td><span class="cs-strong">Residencial Los Cedros</span><br>Mantenimiento de espacios comunes<br><span class="cs-muted">COT-0096 · vigencia 12 días</span></td>
+              <td>Correo<br><span class="cs-muted">Carga manual</span></td><td>Laura M.</td><td class="cs-nowrap">$ 7.200</td>
+              <td><span class="cs-badge cs-quote">Cotizada</span></td><td><button class="cs-btn cs-btn-small" type="button" onclick="irA('cotizaciones')">Ver COT-0096</button></td>
+            </tr>
+            <tr>
+              <td class="cs-nowrap"><b>SOL-0241</b><br><span class="cs-muted">14/06 · 09:00</span></td>
+              <td><span class="cs-strong">Hotel Brisa del Mar</span><br>Adecuación de recepción<br><span class="cs-muted">Aprobada · PROY-0031</span></td>
+              <td>Teléfono<br><span class="cs-muted">Carga manual</span></td><td>Diego R.</td><td class="cs-nowrap">$ 14.900</td>
+              <td><span class="cs-badge cs-done">Convertida</span></td><td><button class="cs-btn cs-btn-small" type="button" onclick="irA('proyectos')">Ver proyecto</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cs-foot">* Referencias económicas ficticias, sin impuestos. Jurisdicción, moneda, régimen fiscal y validez comercial deben confirmarse antes de uso real (A1/A6).</p>
+    </section>
+
+    <aside class="cs-card cs-detail" aria-labelledby="cs-detalle-title">
+      <div class="cs-detail-head">
+        <div><h2 id="cs-detalle-title">SOL-0248</h2><span class="cs-muted">Hotel Brisa del Mar · CLI-018</span></div>
+        <span class="cs-badge cs-ready">Lista</span>
+      </div>
+      <dl class="cs-dl">
+        <dt>Contacto</dt><dd>Marina Soto · Administración</dd>
+        <dt>Comunicación</dt><dd>marina@brisadelmar.example<br>+54 9 11 5555-0142</dd>
+        <dt>Recibida</dt><dd>18/06/2025 · 09:20</dd>
+        <dt>Responsable</dt><dd>Laura M. · Gerente</dd>
+        <dt>Inicio deseado</dt><dd>01/07/2025</dd>
+        <dt>Ubicación</dt><dd>Sede principal · acceso por recepción</dd>
+        <dt>Acceso cliente</dt><dd>Externo · sin usuario del sistema</dd>
+      </dl>
+      <div>
+        <h3>Alcance registrado</h3>
+        <p class="cs-scope">Mantenimiento correctivo y preventivo de áreas comunes: revisión de luminarias, ajuste de mobiliario fijo, sellado de juntas y control de instalaciones visibles. Trabajo fuera del horario de mayor ocupación; exclusiones y condiciones deben quedar en la cotización.</p>
+      </div>
+      <div class="cs-money">
+        <div><small>Costo calculado</small><b>$ 6.900</b></div>
+        <div><small>Precio preliminar</small><b>$ 8.450</b></div>
+        <div><small>Margen/precio</small><b>18,3 %</b></div>
+      </div>
+      <div>
+        <h3>Comprobación de preparación</h3>
+        <ul class="cs-checks">
+          <li>Contacto, alcance y fecha objetivo completos</li>
+          <li>2 soportes: relevamiento.pdf · fotos-areas.zip</li>
+          <li>Cálculo CAL-0188 revisado por Diego R.</li>
+          <li class="cs-pending">Moneda e impuestos: configuración general pendiente</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Actividad</h3>
+        <ol class="cs-timeline">
+          <li><b>11:40 · Lista para cotizar</b><span>Laura validó el cálculo y el alcance.</span></li>
+          <li><b>10:10 · Costos actualizados</b><span>Materiales, mano de obra, logística y contingencia.</span></li>
+          <li><b>09:35 · Contacto registrado</b><span>Se confirmó disponibilidad para el inicio propuesto.</span></li>
+          <li><b>09:20 · Solicitud creada</b><span>Carga manual desde llamada telefónica.</span></li>
+        </ol>
+      </div>
+      <div class="cs-actions">
+        <button class="cs-btn" type="button" onclick="irA('costos')">Ver costos</button>
+        <button class="cs-btn cs-btn-primary" type="button" onclick="irA('cotizaciones')">Crear cotización</button>
+      </div>
+    </aside>
+  </div>
+
+  <section class="cs-card" id="cs-clientes" aria-labelledby="cs-clientes-title">
+    <h2 id="cs-clientes-title">Directorio de clientes</h2>
+    <p class="cs-sub">Contactos comerciales, no usuarios. Datos ficticios; 6 de 24 registros mostrados.</p>
+    <div class="cs-tablebox">
+      <table class="cs-table">
+        <caption>Clientes con actividad reciente</caption>
+        <thead><tr><th>Cliente</th><th>Contacto principal</th><th>Canal preferido</th><th>Solicitudes</th><th>Última actividad</th><th>Situación</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td><b>CLI-018 · Hotel Brisa del Mar</b><br><span class="cs-muted">Empresa · alta 04/02/2025</span></td><td>Marina Soto<span class="cs-client-contact cs-muted">marina@brisadelmar.example</span></td><td>Teléfono</td><td>4 total · 1 activa</td><td>18/06/2025</td><td><span class="cs-badge cs-ready">Activo</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+          <tr><td><b>CLI-017 · Grupo Alameda</b><br><span class="cs-muted">Empresa · alta 28/01/2025</span></td><td>Tomás Aguirre<span class="cs-client-contact cs-muted">tomas@grupoalameda.example</span></td><td>Correo</td><td>2 total · 1 activa</td><td>18/06/2025</td><td><span class="cs-badge cs-ready">Activo</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+          <tr><td><b>CLI-015 · Café Nácar</b><br><span class="cs-muted">Comercio · alta 19/12/2024</span></td><td>Elena Ruiz<span class="cs-client-contact cs-muted">elena@cafenacar.example</span></td><td>Telegram</td><td>3 total · 1 activa</td><td>17/06/2025</td><td><span class="cs-badge cs-wait">Datos pendientes</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+          <tr><td><b>CLI-012 · Clínica Altavista</b><br><span class="cs-muted">Empresa · alta 03/09/2024</span></td><td>Pablo Rey<span class="cs-client-contact cs-muted">pablo@clinicaaltavista.example</span></td><td>Correo</td><td>6 total · 1 activa</td><td>17/06/2025</td><td><span class="cs-badge cs-ready">Activo</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+          <tr><td><b>CLI-009 · Estudio Lumbre</b><br><span class="cs-muted">Profesional · alta 22/05/2024</span></td><td>Sofía Cano<span class="cs-client-contact cs-muted">sofia@estudiolumbre.example</span></td><td>Correo</td><td>2 total · 1 activa</td><td>16/06/2025</td><td><span class="cs-badge cs-progress">En evaluación</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+          <tr><td><b>CLI-006 · Logística del Sur</b><br><span class="cs-muted">Empresa · alta 11/03/2024</span></td><td>Martín Leiva<span class="cs-client-contact cs-muted">martin@logisticadelsur.example</span></td><td>Teléfono</td><td>5 total · 1 activa</td><td>16/06/2025</td><td><span class="cs-badge cs-new">Nuevo pedido</span></td><td><button class="cs-btn cs-btn-small" type="button">Ver ficha</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="cs-card" id="cs-nueva" aria-labelledby="cs-nueva-title">
+    <h2 id="cs-nueva-title">Nueva solicitud · carga manual</h2>
+    <p class="cs-sub">Borrador demo SOL-0249. Los campos con * son obligatorios para crear; costos y documentos se completan después.</p>
+    <form class="cs-form" onsubmit="return false">
+      <div class="cs-formgrid">
+        <label class="cs-field">Cliente existente *<select required><option>Residencial Los Cedros · CLI-004</option><option>Hotel Brisa del Mar · CLI-018</option><option>Grupo Alameda · CLI-017</option><option>— Registrar cliente nuevo —</option></select></label>
+        <label class="cs-field">Nombre del contacto *<input required value="Andrea Paz"></label>
+        <label class="cs-field">Cargo / relación<input value="Administración del consorcio"></label>
+        <label class="cs-field">Correo de contacto<input type="email" value="andrea@loscedros.example"></label>
+        <label class="cs-field">Teléfono<input type="tel" value="+54 9 11 5555-0168"></label>
+        <label class="cs-field">Origen del pedido *<select required><option>Correo · carga manual</option><option>Teléfono · carga manual</option><option>Referido · carga manual</option><option>Telegram recibido fuera del sistema</option></select><small>No ejecuta ningún envío ni integración.</small></label>
+        <label class="cs-field">Fecha de recepción *<input type="datetime-local" required value="2025-06-18T11:50"></label>
+        <label class="cs-field">Responsable interno *<select required><option>Laura M. · Gerente</option><option>Diego R. · Gerente</option><option>Sin asignar</option></select></label>
+        <label class="cs-field">Prioridad<select><option>Normal</option><option>Alta</option><option>Baja</option></select></label>
+        <label class="cs-field">Tipo de trabajo *<select required><option>Adecuación</option><option>Instalación</option><option>Mantenimiento</option><option>Otro / por clasificar</option></select></label>
+        <label class="cs-field">Fecha deseada de inicio<input type="date" value="2025-07-15"></label>
+        <label class="cs-field">Referencia económica<input type="number" min="0" step="50" value="5200"><small>Moneda demo; no constituye precio aprobado.</small></label>
+        <label class="cs-field cs-wide">Descripción y alcance solicitado *<textarea required>Adecuación del salón de usos múltiples: reparación de paredes, pintura interior, revisión de luminarias y ajuste de puertas. El cliente solicita una alternativa por etapas para reducir la interrupción de actividades.</textarea></label>
+        <label class="cs-field cs-wide">Ubicación y condiciones de acceso<input value="Salón de planta baja · coordinar acceso con administración · horario por confirmar"></label>
+        <label class="cs-field cs-wide">Soportes del requerimiento<input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.xlsx"><small>Demo pendiente de adjuntar: acta-relevamiento.pdf y 3 fotografías. Máximo y almacenamiento por definir.</small></label>
+        <label class="cs-field cs-wide">Notas internas<textarea>Confirmar medidas del salón y si existe material disponible. No incluir impuestos ni comprometer fecha hasta revisar disponibilidad y costos.</textarea></label>
+      </div>
+      <label class="cs-check"><input type="checkbox" checked> Revisé que el registro distinga datos confirmados, supuestos y faltantes; la solicitud todavía no es una cotización.</label>
+      <div class="cs-actions">
+        <button class="cs-btn" type="reset">Restablecer borrador</button>
+        <button class="cs-btn" type="button">Guardar borrador</button>
+        <button class="cs-btn cs-btn-primary" type="submit">Guardar solicitud</button>
+        <button class="cs-btn" type="button" disabled title="Telegram Bot API pendiente de integrar">Enviar por Telegram</button>
+      </div>
+    </form>
+  </section>
+
+  <footer class="cs-foot">Trazabilidad propuesta: solicitud → cálculo de costos → cotización → aprobación → proyecto. La conversión no elimina el historial. Permisos detallados del Gerente, política de retención de soportes y tratamiento fiscal permanecen pendientes de validación.</footer>
+</div>
+</section>
+<section id='cotizaciones-documentos' class='pantalla' style='display:none'>
+<style>
+.cd-wrap{--cd-ink:#17231f;--cd-muted:#68756f;--cd-line:#dfe6e2;--cd-soft:#f4f7f5;--cd-green:#176b4d;--cd-amber:#9a610b;max-width:1440px;margin:auto;color:var(--cd-ink)}.cd-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:16px}.cd-head h1{margin:0 0 5px;font-size:26px}.cd-head p{margin:0;color:var(--cd-muted)}.cd-actions{display:flex;gap:8px;flex-wrap:wrap}.cd-btn{border:1px solid var(--cd-line);background:#fff;color:var(--cd-ink);padding:9px 13px;border-radius:8px;cursor:pointer;font-weight:600}.cd-btn.primary{background:var(--cd-green);border-color:var(--cd-green);color:#fff}.cd-btn.small{padding:5px 9px;font-size:12px}.cd-btn:disabled{opacity:.45;cursor:not-allowed}.cd-tag{display:inline-block;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;background:#e8f3ed;color:var(--cd-green)}.cd-tag.amber{background:#fff3d9;color:var(--cd-amber)}.cd-tag.gray{background:#edf0ee;color:#59645f}.cd-tag.red{background:#fdeceb;color:#a43b32}.cd-alert{padding:11px 14px;border-left:4px solid #d59a35;background:#fff8e9;margin-bottom:16px;font-size:13px}.cd-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}.cd-card{background:#fff;border:1px solid var(--cd-line);border-radius:11px;padding:15px}.cd-kpi small{color:var(--cd-muted)}.cd-kpi strong{display:block;font-size:23px;margin:6px 0}.cd-kpi span{font-size:12px;color:var(--cd-muted)}.cd-toolbar{display:flex;gap:9px;align-items:end;flex-wrap:wrap;margin-bottom:10px}.cd-field{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--cd-muted)}.cd-field.grow{flex:1;min-width:210px}.cd-field input,.cd-field select,.cd-field textarea,.cd-cost-input{border:1px solid var(--cd-line);border-radius:7px;padding:8px 9px;background:#fff;color:var(--cd-ink);font:inherit;min-width:0}.cd-field textarea{resize:vertical}.cd-tablewrap{overflow-x:auto}.cd-table{width:100%;border-collapse:collapse;font-size:13px}.cd-table th{text-align:left;color:var(--cd-muted);font-size:11px;text-transform:uppercase;letter-spacing:.03em;background:var(--cd-soft)}.cd-table th,.cd-table td{padding:10px;border-bottom:1px solid var(--cd-line);vertical-align:middle}.cd-table tr.selected{background:#eef7f2}.cd-table tr:last-child td{border-bottom:0}.cd-num{text-align:right!important;white-space:nowrap}.cd-muted{color:var(--cd-muted)}.cd-foot{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:12px;color:var(--cd-muted)}.cd-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:22px 0 10px}.cd-title h2{font-size:19px;margin:0}.cd-title p{margin:3px 0 0;color:var(--cd-muted);font-size:13px}.cd-editor{display:grid;grid-template-columns:2fr 1fr;gap:12px}.cd-formgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.cd-span2{grid-column:span 2}.cd-span3{grid-column:span 3}.cd-summary{background:#172f27;color:#fff}.cd-summary .cd-muted{color:#bfd0c8}.cd-sumrow{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:13px}.cd-total{border-top:1px solid #527065;margin-top:7px;padding-top:12px;font-size:20px;font-weight:800}.cd-costbar{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--cd-line)}.cd-costbar .cd-field{width:130px}.cd-bottom{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px}.cd-paper{border:1px solid #cfd8d3;padding:22px;background:#fff}.cd-paperhead{display:flex;justify-content:space-between;border-bottom:2px solid var(--cd-green);padding-bottom:12px;margin-bottom:14px}.cd-brand{font-size:21px;font-weight:800;letter-spacing:.08em}.cd-docmeta{text-align:right;font-size:12px}.cd-client{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;font-size:13px}.cd-terms{font-size:12px;line-height:1.55;margin-top:14px}.cd-side h3{margin:0 0 10px;font-size:15px}.cd-statusline{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--cd-line);font-size:13px}.cd-history{margin:0;padding-left:18px;font-size:12px;line-height:1.7;color:var(--cd-muted)}.cd-sticky-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.cd-link{color:var(--cd-green);font-weight:700;cursor:pointer}@media(max-width:950px){.cd-kpis{grid-template-columns:repeat(2,1fr)}.cd-editor,.cd-bottom{grid-template-columns:1fr}.cd-formgrid{grid-template-columns:repeat(2,1fr)}.cd-span3{grid-column:span 2}}@media(max-width:600px){.cd-head{display:block}.cd-head .cd-actions{margin-top:12px}.cd-formgrid,.cd-client{grid-template-columns:1fr}.cd-span2,.cd-span3{grid-column:span 1}.cd-kpis{grid-template-columns:1fr}}
+</style>
+<div class="cd-wrap">
+<header class="cd-head">
+<div>
+<span class="cd-tag">MVP · operación interna</span>
+<h1>Cotizaciones y documentos</h1>
+<p>Costos internos, precio de venta, versiones y presentación comercial en una sola trazabilidad.</p>
+</div>
+<div class="cd-actions">
+<button class="cd-btn" onclick="irA('solicitudes')">Ver solicitudes</button>
+<button class="cd-btn primary">+ Nueva cotización</button>
+</div>
+</header>
+<div class="cd-alert"><strong>Configuración demo pendiente de validar:</strong> moneda USD e impuesto del 13%. El PDF de marca y el envío por Telegram están pendientes de integrar; el cálculo, la aprobación interna y el registro de envío manual sí forman parte del flujo.</div>
+<div class="cd-kpis">
+<article class="cd-card cd-kpi"><small>Pipeline activo</small><strong>USD 4.254,56</strong><span>2 cotizaciones: 1 en edición y 1 enviada</span></article>
+<article class="cd-card cd-kpi"><small>Esperando respuesta</small><strong>USD 1.884,25</strong><span>1 documento enviado al cliente</span></article>
+<article class="cd-card cd-kpi"><small>Aprobadas en junio</small><strong>USD 16.280,00</strong><span>2 cotizaciones convertibles en proyectos</span></article>
+<article class="cd-card cd-kpi"><small>Conversión comercial</small><strong>66,7%</strong><span>2 aprobadas de 3 decididas · datos demo</span></article>
+</div>
+<div class="cd-toolbar">
+<label class="cd-field grow">Buscar<input placeholder="Código, cliente o proyecto" value=""></label>
+<label class="cd-field">Estado<select><option>Todos los estados</option><option>En edición</option><option>Enviada</option><option>Aprobada</option><option>Vencida</option><option>Rechazada</option></select></label>
+<label class="cd-field">Responsable<select><option>Todos</option><option>Gerente</option><option>Administrador</option></select></label>
+<button class="cd-btn">Aplicar filtros</button>
+<button class="cd-btn">Limpiar</button>
+</div>
+<div class="cd-card cd-tablewrap">
+<table class="cd-table">
+<thead><tr><th>Cotización / cliente</th><th>Proyecto</th><th>Emisión</th><th>Validez</th><th class="cd-num">Total</th><th>Estado</th><th>Acción</th></tr></thead>
+<tbody>
+<tr class="selected"><td><strong>COT-2025-0048</strong><br><span class="cd-muted">Comercial Aurora S.A.</span></td><td>Adecuación eléctrica · Local Norte</td><td>18 jun 2025</td><td>30 jun 2025</td><td class="cd-num"><strong>$2.370,31</strong></td><td><span class="cd-tag amber">En edición</span></td><td><button class="cd-btn small">Abierta</button></td></tr>
+<tr><td><strong>COT-2025-0047</strong><br><span class="cd-muted">Clínica Vida</span></td><td>Mantenimiento preventivo</td><td>16 jun 2025</td><td>30 jun 2025</td><td class="cd-num">$1.884,25</td><td><span class="cd-tag">Enviada</span></td><td><button class="cd-btn small">Abrir</button></td></tr>
+<tr><td><strong>COT-2025-0046</strong><br><span class="cd-muted">Bodega Central</span></td><td>Iluminación industrial</td><td>12 jun 2025</td><td>26 jun 2025</td><td class="cd-num">$6.420,00</td><td><span class="cd-tag">Aprobada</span></td><td><button class="cd-btn small" onclick="irA('proyectos')">Ver proyecto</button></td></tr>
+<tr><td><strong>COT-2025-0045</strong><br><span class="cd-muted">Oficinas Prisma</span></td><td>Red de datos</td><td>28 may 2025</td><td>11 jun 2025</td><td class="cd-num">$3.175,40</td><td><span class="cd-tag gray">Vencida</span></td><td><button class="cd-btn small">Duplicar</button></td></tr>
+<tr><td><strong>COT-2025-0044</strong><br><span class="cd-muted">Casa Roble</span></td><td>Remodelación interior</td><td>03 jun 2025</td><td>17 jun 2025</td><td class="cd-num">$9.860,00</td><td><span class="cd-tag">Aprobada</span></td><td><button class="cd-btn small" onclick="irA('proyectos')">Ver proyecto</button></td></tr>
+<tr><td><strong>COT-2025-0043</strong><br><span class="cd-muted">Café Nácar</span></td><td>Soporte eléctrico</td><td>17 may 2025</td><td>31 may 2025</td><td class="cd-num">$742,95</td><td><span class="cd-tag red">Rechazada</span></td><td><button class="cd-btn small">Abrir</button></td></tr>
+</tbody>
+</table>
+<div class="cd-foot"><span>Mostrando 6 cotizaciones demo</span><span>Orden: actualización más reciente</span></div>
+</div>
+<div class="cd-title">
+<div><h2>COT-2025-0048 · Adecuación eléctrica</h2><p>Origen: <span class="cd-link" onclick="irA('solicitudes')">SOL-2025-0031</span> · Versión 1 · Actualizada por Gerente a las 10:42</p></div>
+<div class="cd-actions"><button class="cd-btn">Duplicar</button><button class="cd-btn primary">Guardar borrador</button></div>
+</div>
+<div class="cd-editor">
+<form class="cd-card">
+<div class="cd-formgrid">
+<label class="cd-field">Cliente<input value="Comercial Aurora S.A."></label>
+<label class="cd-field">Contacto<input value="Laura Méndez · Gerencia"></label>
+<label class="cd-field">Correo<input type="email" value="laura@comercialaurora.demo"></label>
+<label class="cd-field cd-span2">Nombre del proyecto<input value="Adecuación eléctrica · Local Norte"></label>
+<label class="cd-field">Responsable<select><option selected>Gerente</option><option>Administrador</option></select></label>
+<label class="cd-field">Fecha de emisión<input type="date" value="2025-06-18"></label>
+<label class="cd-field">Válida hasta<input type="date" value="2025-06-30"></label>
+<label class="cd-field">Estado<select><option selected>En edición</option><option>Enviada</option><option>Aprobada</option><option>Rechazada</option></select></label>
+<label class="cd-field">Moneda<select><option selected>USD · demo</option><option>Pendiente de configurar</option></select></label>
+<label class="cd-field">Plazo estimado<input value="10 días hábiles"></label>
+<label class="cd-field">Condición de pago<input value="50% anticipo · 50% contra entrega"></label>
+<label class="cd-field cd-span3">Alcance comercial<textarea rows="3">Adecuación de circuitos y puntos eléctricos, suministro e instalación de tablero con protecciones, pruebas de funcionamiento y entrega técnica. No incluye obra civil, permisos ni trabajos fuera del alcance descrito.</textarea></label>
+</div>
+</form>
+<aside class="cd-card cd-summary">
+<h3>Resumen económico</h3>
+<div class="cd-sumrow"><span>Costos directos</span><strong>$1.592,00</strong></div>
+<div class="cd-sumrow"><span>Indirectos · 8%</span><strong>$127,36</strong></div>
+<div class="cd-sumrow"><span>Costo total interno</span><strong>$1.719,36</strong></div>
+<div class="cd-sumrow"><span>Utilidad · 22% sobre costo</span><strong>$378,26</strong></div>
+<div class="cd-sumrow"><span>Subtotal de venta</span><strong>$2.097,62</strong></div>
+<div class="cd-sumrow"><span>Impuesto demo · 13%</span><strong>$272,69</strong></div>
+<div class="cd-sumrow cd-total"><span>Total cliente</span><span>$2.370,31</span></div>
+<p class="cd-muted">Margen estimado sobre venta: 18,0%. Los costos internos no aparecen en el documento del cliente.</p>
+</aside>
+</div>
+<div class="cd-title"><div><h2>Cálculo de costos</h2><p>Desglose interno editable · los importes de venta se recalculan con los parámetros inferiores.</p></div><button class="cd-btn">+ Agregar concepto</button></div>
+<div class="cd-card">
+<div class="cd-tablewrap">
+<table class="cd-table">
+<thead><tr><th>Concepto</th><th>Categoría</th><th>Cantidad</th><th>Unidad</th><th class="cd-num">Costo unitario</th><th class="cd-num">Costo total</th><th></th></tr></thead>
+<tbody>
+<tr><td>Mano de obra especializada</td><td>Mano de obra</td><td><input class="cd-cost-input" size="5" value="24"></td><td>hora</td><td class="cd-num"><input class="cd-cost-input" size="8" value="28.00"></td><td class="cd-num">$672,00</td><td><button class="cd-btn small">Quitar</button></td></tr>
+<tr><td>Materiales eléctricos y cableado</td><td>Materiales</td><td><input class="cd-cost-input" size="5" value="1"></td><td>lote</td><td class="cd-num"><input class="cd-cost-input" size="8" value="540.00"></td><td class="cd-num">$540,00</td><td><button class="cd-btn small">Quitar</button></td></tr>
+<tr><td>Tablero y protecciones</td><td>Equipos</td><td><input class="cd-cost-input" size="5" value="1"></td><td>lote</td><td class="cd-num"><input class="cd-cost-input" size="8" value="310.00"></td><td class="cd-num">$310,00</td><td><button class="cd-btn small">Quitar</button></td></tr>
+<tr><td>Transporte y logística</td><td>Logística</td><td><input class="cd-cost-input" size="5" value="2"></td><td>viaje</td><td class="cd-num"><input class="cd-cost-input" size="8" value="35.00"></td><td class="cd-num">$70,00</td><td><button class="cd-btn small">Quitar</button></td></tr>
+<tr><td colspan="5"><strong>Subtotal de costos directos</strong></td><td class="cd-num"><strong>$1.592,00</strong></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<div class="cd-costbar">
+<label class="cd-field">Indirectos (%)<input value="8"></label>
+<label class="cd-field">Utilidad sobre costo (%)<input value="22"></label>
+<label class="cd-field">Descuento (%)<input value="0"></label>
+<label class="cd-field">Impuesto demo (%)<input value="13"></label>
+<button class="cd-btn primary">Recalcular totales</button>
+<span class="cd-muted">Catálogo de costos revisado: 18 jun 2025 · validar precios antes de aprobar.</span>
+</div>
+</div>
+<div class="cd-bottom">
+<article class="cd-paper">
+<div class="cd-paperhead"><div><div class="cd-brand">EDÉN</div><small>Oficina de proyectos y servicios</small></div><div class="cd-docmeta"><strong>COTIZACIÓN</strong><br>COT-2025-0048 · Versión 1<br>Emisión: 18 jun 2025<br>Válida hasta: 30 jun 2025</div></div>
+<div class="cd-client"><div><strong>Preparada para</strong><br>Comercial Aurora S.A.<br>Laura Méndez · Gerencia<br>Local Norte</div><div><strong>Proyecto</strong><br>Adecuación eléctrica<br>Plazo: 10 días hábiles<br>Moneda: USD · demo</div></div>
+<table class="cd-table">
+<thead><tr><th>Descripción del servicio</th><th>Cant.</th><th class="cd-num">Importe</th></tr></thead>
+<tbody>
+<tr><td>Adecuación de circuitos, cableado y puntos eléctricos</td><td>1 servicio</td><td class="cd-num">$1.248,00</td></tr>
+<tr><td>Suministro e instalación de tablero y protecciones</td><td>1 lote</td><td class="cd-num">$649,62</td></tr>
+<tr><td>Pruebas, puesta en marcha y entrega técnica</td><td>1 servicio</td><td class="cd-num">$200,00</td></tr>
+<tr><td colspan="2" class="cd-num">Subtotal</td><td class="cd-num">$2.097,62</td></tr>
+<tr><td colspan="2" class="cd-num">Impuesto demo · 13%</td><td class="cd-num">$272,69</td></tr>
+<tr><td colspan="2" class="cd-num"><strong>Total</strong></td><td class="cd-num"><strong>$2.370,31</strong></td></tr>
+</tbody>
+</table>
+<div class="cd-terms"><strong>Condiciones:</strong> 50% de anticipo y 50% contra entrega. La cotización no incluye obra civil, permisos ni alcances adicionales. Cualquier modificación será valorada y aprobada antes de ejecutarse.<br><strong>Preparado por:</strong> Gerencia · Documento de vista previa, no constituye comprobante fiscal.</div>
+</article>
+<aside>
+<div class="cd-card cd-side">
+<h3>Emisión y seguimiento</h3>
+<div class="cd-statusline"><span>Datos de cotización</span><span class="cd-tag">Completos</span></div>
+<div class="cd-statusline"><span>Cálculo de costos</span><span class="cd-tag">Actualizado</span></div>
+<div class="cd-statusline"><span>Vista previa</span><span class="cd-tag">Disponible</span></div>
+<div class="cd-statusline"><span>PDF de marca</span><span class="cd-tag amber">Pendiente</span></div>
+<div class="cd-statusline"><span>Envío por Telegram</span><span class="cd-tag amber">Fase 2</span></div>
+<div class="cd-sticky-actions"><button class="cd-btn">Vista previa</button><button class="cd-btn" disabled title="Módulo PDF pendiente de integrar">Generar PDF</button><button class="cd-btn primary">Marcar como enviada</button><button class="cd-btn" disabled title="Requiere aprobación del cliente">Convertir a proyecto</button></div>
+<p class="cd-muted">“Marcar como enviada” registra un envío manual; no entrega mensajes automáticamente.</p>
+</div>
+<div class="cd-card cd-side" style="margin-top:12px">
+<h3>Historial de la versión</h3>
+<ul class="cd-history"><li><strong>10:42</strong> · Gerente recalculó impuestos y totales.</li><li><strong>10:35</strong> · Se agregó “Tablero y protecciones”.</li><li><strong>10:18</strong> · Se definieron validez y condición de pago.</li><li><strong>09:58</strong> · Borrador creado desde SOL-2025-0031.</li></ul>
+</div>
+</aside>
+</div>
+</div>
+</section>
+<section id='catalogo-costos' class='pantalla' style='display:none'>
+  <style>
+    .ctc-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+    .ctc-head h1{margin:4px 0 6px}
+    .ctc-head p{margin:0;max-width:760px;color:#64748b}
+    .ctc-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .ctc-meta{display:inline-flex;gap:6px;align-items:center;padding:5px 9px;border-radius:999px;background:#eef2ff;color:#4338ca;font-size:12px;font-weight:700}
+    .ctc-alert{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:12px 14px;margin-bottom:14px;border:1px solid #fbbf24;border-radius:10px;background:#fffbeb;color:#78350f}
+    .ctc-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+    .ctc-kpi{padding:14px;border:1px solid #e2e8f0;border-radius:10px;background:#fff}
+    .ctc-kpi span{display:block;color:#64748b;font-size:12px}
+    .ctc-kpi strong{display:block;margin:5px 0;font-size:25px;color:#0f172a}
+    .ctc-kpi small{color:#64748b}
+    .ctc-layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:14px;align-items:start}
+    .ctc-panel{border:1px solid #e2e8f0;border-radius:12px;background:#fff;overflow:hidden}
+    .ctc-panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #e2e8f0}
+    .ctc-panel-head h2,.ctc-panel-head h3{margin:0;font-size:16px}
+    .ctc-filters{display:grid;grid-template-columns:minmax(190px,2fr) repeat(3,minmax(120px,1fr));gap:8px;padding:12px 16px;background:#f8fafc}
+    .ctc-filters input,.ctc-filters select,.ctc-form input,.ctc-form select,.ctc-form textarea{width:100%;box-sizing:border-box;padding:8px 9px;border:1px solid #cbd5e1;border-radius:7px;background:#fff;color:#0f172a}
+    .ctc-table-wrap{overflow-x:auto}
+    .ctc-table{width:100%;border-collapse:collapse;font-size:13px}
+    .ctc-table th{padding:10px 9px;text-align:left;background:#f1f5f9;color:#475569;white-space:nowrap}
+    .ctc-table td{padding:11px 9px;border-top:1px solid #e2e8f0;vertical-align:middle}
+    .ctc-table tbody tr:hover{background:#f8fafc}
+    .ctc-table .ctc-selected{background:#eef2ff}
+    .ctc-code{font-weight:800;color:#334155;white-space:nowrap}
+    .ctc-item{min-width:190px}
+    .ctc-item strong,.ctc-item small{display:block}
+    .ctc-item small{margin-top:3px;color:#64748b}
+    .ctc-money{font-weight:800;white-space:nowrap;color:#0f172a}
+    .ctc-status{display:inline-block;padding:4px 7px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}
+    .ctc-ok{background:#dcfce7;color:#166534}
+    .ctc-warn{background:#fef3c7;color:#92400e}
+    .ctc-bad{background:#fee2e2;color:#991b1b}
+    .ctc-table-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid #e2e8f0;color:#64748b;font-size:13px}
+    .ctc-form{display:grid;grid-template-columns:1fr 1fr;gap:11px;padding:14px 16px}
+    .ctc-form label{display:block;color:#475569;font-size:12px;font-weight:700}
+    .ctc-form input,.ctc-form select,.ctc-form textarea{display:block;margin-top:5px;font-weight:400}
+    .ctc-full{grid-column:1/-1}
+    .ctc-check{display:flex!important;align-items:center;gap:8px;padding:9px 0;font-weight:600!important}
+    .ctc-check input{width:auto!important;margin:0!important}
+    .ctc-calc{padding:12px 16px;background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
+    .ctc-calc div{display:flex;justify-content:space-between;margin:5px 0;color:#475569}
+    .ctc-calc strong{color:#0f172a}
+    .ctc-detail-actions{display:flex;gap:8px;padding:14px 16px;flex-wrap:wrap}
+    .ctc-history{padding:0 16px 14px}
+    .ctc-history h4{margin:4px 0 10px}
+    .ctc-history-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:8px 0;border-top:1px solid #e2e8f0;font-size:12px;color:#64748b}
+    .ctc-note{padding:12px 16px;background:#fffbeb;color:#78350f;font-size:12px;border-top:1px solid #fde68a}
+    .ctc-bottom{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:14px;padding:12px 14px;border:1px solid #e2e8f0;border-radius:10px;background:#f8fafc;color:#475569;font-size:13px}
+    @media(max-width:1100px){.ctc-layout{grid-template-columns:1fr}.ctc-kpis{grid-template-columns:repeat(2,1fr)}.ctc-filters{grid-template-columns:1fr 1fr}}
+    @media(max-width:680px){.ctc-head,.ctc-alert,.ctc-bottom{align-items:stretch;flex-direction:column}.ctc-kpis{grid-template-columns:1fr}.ctc-filters,.ctc-form{grid-template-columns:1fr}.ctc-full{grid-column:auto}}
+  </style>
+
+  <header class="ctc-head">
+    <div>
+      <span class="ctc-meta">Operación · Fuente única de costos</span>
+      <h1>Catálogo de costos</h1>
+      <p>Materiales, mano de obra, equipos y subcontratos utilizados por el motor de cotización. Cada concepto conserva proveedor, unidad, merma y vigencia.</p>
+    </div>
+    <div class="ctc-actions">
+      <button class="btn btn-secundario" type="button" onclick="irA('calculo-costos')">Usar en cálculo</button>
+      <button class="btn btn-primario" type="button">+ Nuevo concepto</button>
+    </div>
+  </header>
+
+  <div class="ctc-alert">
+    <div>
+      <strong>9 conceptos requieren revisión.</strong>
+      <span> 6 están por vencer y 3 desactualizados. El motor conserva el último costo, pero solicitará confirmación antes de enviar una cotización.</span>
+    </div>
+    <button class="btn btn-secundario" type="button">Revisar pendientes</button>
+  </div>
+
+  <div class="ctc-kpis">
+    <article class="ctc-kpi">
+      <span>Conceptos activos</span>
+      <strong>48</strong>
+      <small>12 proveedores · 4 categorías</small>
+    </article>
+    <article class="ctc-kpi">
+      <span>Costos vigentes</span>
+      <strong>39</strong>
+      <small>81.3% del catálogo</small>
+    </article>
+    <article class="ctc-kpi">
+      <span>Requieren actualización</span>
+      <strong>9</strong>
+      <small>6 por vencer · 3 desactualizados</small>
+    </article>
+    <article class="ctc-kpi">
+      <span>Variación últimos 30 días</span>
+      <strong>+2.4%</strong>
+      <small>Acero corrugado: +4.7%</small>
+    </article>
+  </div>
+
+  <div class="ctc-layout">
+    <div class="ctc-panel">
+      <div class="ctc-panel-head">
+        <div>
+          <h2>Conceptos del catálogo</h2>
+          <small>Corte demo: 18 jun 2025 · USD · importes sin impuestos</small>
+        </div>
+        <button class="btn btn-secundario" type="button" disabled title="Selecciona al menos un concepto">Actualizar seleccionados</button>
+      </div>
+
+      <div class="ctc-filters">
+        <input type="search" aria-label="Buscar concepto" placeholder="Buscar por código, concepto o proveedor…">
+        <select aria-label="Filtrar por categoría">
+          <option>Todas las categorías</option>
+          <option>Materiales</option>
+          <option>Mano de obra</option>
+          <option>Equipos</option>
+          <option>Subcontratos</option>
+        </select>
+        <select aria-label="Filtrar por proveedor">
+          <option>Todos los proveedores</option>
+          <option>Color y Obra</option>
+          <option>ConstruMarket</option>
+          <option>Nómina interna</option>
+          <option>Renta Firme</option>
+        </select>
+        <select aria-label="Filtrar por estado">
+          <option>Todos los estados</option>
+          <option>Vigente</option>
+          <option>Por vencer</option>
+          <option>Desactualizado</option>
+        </select>
+      </div>
+
+      <div class="ctc-table-wrap">
+        <table class="ctc-table">
+          <thead>
+            <tr>
+              <th scope="col"><input type="checkbox" aria-label="Seleccionar todos los conceptos"></th>
+              <th scope="col">Concepto</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Unidad</th>
+              <th scope="col">Proveedor</th>
+              <th scope="col">Costo unit.</th>
+              <th scope="col">Actualizado</th>
+              <th scope="col">Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar cemento gris"></td>
+              <td class="ctc-item"><span class="ctc-code">MAT-001</span><strong>Cemento gris 42.5 kg</strong><small>Uso general estructural</small></td>
+              <td>Materiales</td><td>saco</td><td>ConstruMarket</td><td class="ctc-money">$8.90</td><td>18 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar arena lavada"></td>
+              <td class="ctc-item"><span class="ctc-code">MAT-004</span><strong>Arena lavada</strong><small>Granulometría fina</small></td>
+              <td>Materiales</td><td>m³</td><td>Agregados del Valle</td><td class="ctc-money">$24.50</td><td>14 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar acero corrugado"></td>
+              <td class="ctc-item"><span class="ctc-code">MAT-007</span><strong>Acero corrugado 3/8&quot;</strong><small>Barra de 9 m</small></td>
+              <td>Materiales</td><td>barra</td><td>Aceros Nova</td><td class="ctc-money">$6.75</td><td>11 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr class="ctc-selected">
+              <td><input type="checkbox" aria-label="Seleccionar pintura látex"></td>
+              <td class="ctc-item"><span class="ctc-code">MAT-012</span><strong>Pintura látex blanca</strong><small>Mate · cubeta de 19 L</small></td>
+              <td>Materiales</td><td>cubeta</td><td>Color y Obra</td><td class="ctc-money">$42.80</td><td>30 may 2025</td><td><span class="ctc-status ctc-warn">Por vencer</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar oficial albañil"></td>
+              <td class="ctc-item"><span class="ctc-code">MO-001</span><strong>Oficial albañil</strong><small>Jornada de 8 horas</small></td>
+              <td>Mano de obra</td><td>jornada</td><td>Nómina interna</td><td class="ctc-money">$32.00</td><td>01 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar electricista"></td>
+              <td class="ctc-item"><span class="ctc-code">MO-003</span><strong>Electricista certificado</strong><small>Incluye herramienta básica</small></td>
+              <td>Mano de obra</td><td>hora</td><td>Nómina interna</td><td class="ctc-money">$9.50</td><td>01 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar andamio tubular"></td>
+              <td class="ctc-item"><span class="ctc-code">EQ-002</span><strong>Andamio tubular</strong><small>Módulo con plataforma</small></td>
+              <td>Equipos</td><td>día</td><td>Renta Firme</td><td class="ctc-money">$7.25</td><td>20 may 2025</td><td><span class="ctc-status ctc-warn">Por vencer</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar mezcladora"></td>
+              <td class="ctc-item"><span class="ctc-code">EQ-005</span><strong>Mezcladora de un bulto</strong><small>Sin combustible ni operador</small></td>
+              <td>Equipos</td><td>día</td><td>Renta Firme</td><td class="ctc-money">$12.00</td><td>18 abr 2025</td><td><span class="ctc-status ctc-bad">Desactualizado</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar instalación de cancel"></td>
+              <td class="ctc-item"><span class="ctc-code">SUB-002</span><strong>Instalación de cancel de vidrio</strong><small>Mano de obra especializada</small></td>
+              <td>Subcontratos</td><td>m²</td><td>Vidrios del Centro</td><td class="ctc-money">$38.00</td><td>09 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+            <tr>
+              <td><input type="checkbox" aria-label="Seleccionar impermeabilizante"></td>
+              <td class="ctc-item"><span class="ctc-code">MAT-015</span><strong>Impermeabilizante acrílico</strong><small>Blanco · cubeta de 19 L</small></td>
+              <td>Materiales</td><td>cubeta</td><td>Color y Obra</td><td class="ctc-money">$51.30</td><td>06 jun 2025</td><td><span class="ctc-status ctc-ok">Vigente</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ctc-table-foot">
+        <span>Mostrando 1–10 de 48 conceptos</span>
+        <div class="ctc-actions">
+          <button class="btn btn-secundario" type="button" disabled>Anterior</button>
+          <button class="btn btn-secundario" type="button">Siguiente</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="ctc-panel">
+      <div class="ctc-panel-head">
+        <div>
+          <h3>Detalle del concepto</h3>
+          <small>MAT-012 · seleccionado</small>
+        </div>
+        <span class="ctc-status ctc-warn">Por vencer</span>
+      </div>
+
+      <form class="ctc-form">
+        <label>Código
+          <input type="text" value="MAT-012" readonly>
+        </label>
+        <label>Categoría
+          <select>
+            <option selected>Materiales</option>
+            <option>Mano de obra</option>
+            <option>Equipos</option>
+            <option>Subcontratos</option>
+          </select>
+        </label>
+        <label class="ctc-full">Concepto
+          <input type="text" value="Pintura látex blanca mate">
+        </label>
+        <label>Unidad de compra
+          <select>
+            <option selected>cubeta 19 L</option>
+            <option>litro</option>
+            <option>galón</option>
+          </select>
+        </label>
+        <label>Proveedor
+          <select>
+            <option selected>Color y Obra</option>
+            <option>ConstruMarket</option>
+            <option>Compra directa</option>
+          </select>
+        </label>
+        <label>Costo unitario
+          <input type="number" value="42.80" min="0" step="0.01">
+        </label>
+        <label>Moneda
+          <select>
+            <option selected>USD · demo</option>
+          </select>
+        </label>
+        <label>Merma sugerida
+          <input type="number" value="5" min="0" max="100" step="0.5">
+        </label>
+        <label>Vigente hasta
+          <input type="date" value="2025-06-29">
+        </label>
+        <label class="ctc-full">Notas para cotización
+          <textarea rows="3">Rendimiento referencial: 90 m² por cubeta a dos manos. Confirmar rendimiento según superficie y preparación.</textarea>
+        </label>
+        <label class="ctc-check ctc-full">
+          <input type="checkbox" checked>
+          Disponible para nuevos cálculos y cotizaciones
+        </label>
+      </form>
+
+      <div class="ctc-calc">
+        <div><span>Costo base</span><strong>$42.80</strong></div>
+        <div><span>Merma sugerida · 5%</span><strong>$2.14</strong></div>
+        <div><span>Costo para el motor</span><strong>$44.94 / cubeta</strong></div>
+      </div>
+
+      <div class="ctc-detail-actions">
+        <button class="btn btn-primario" type="button">Guardar cambios</button>
+        <button class="btn btn-secundario" type="button">Registrar nuevo precio</button>
+        <button class="btn btn-secundario" type="button">Duplicar</button>
+      </div>
+
+      <div class="ctc-history">
+        <h4>Historial de precios</h4>
+        <div class="ctc-history-row"><span>30 may 2025 · A. Rivera</span><strong>$42.80</strong><span>+3.9%</span></div>
+        <div class="ctc-history-row"><span>28 feb 2025 · A. Rivera</span><strong>$41.20</strong><span>+3.3%</span></div>
+        <div class="ctc-history-row"><span>15 nov 2024 · Carga inicial</span><strong>$39.90</strong><span>Base</span></div>
+      </div>
+
+      <div class="ctc-note">
+        Captura manual: no existe integración automática con proveedores. Moneda, impuestos y reglas de vigencia son supuestos demo pendientes de validación.
+      </div>
+    </aside>
+  </div>
+
+  <footer class="ctc-bottom">
+    <span><strong>Trazabilidad:</strong> modificar un costo no altera cotizaciones ya emitidas; los nuevos cálculos tomarán la versión vigente.</span>
+    <div class="ctc-actions">
+      <button class="btn btn-secundario" type="button" onclick="irA('control-gastos')">Contrastar con gastos</button>
+      <button class="btn btn-primario" type="button" onclick="irA('calculo-costos')">Ir al motor de costos</button>
+    </div>
+  </footer>
+</section>
+<section id='proyectos-presupuestos' class='pantalla' style='display:none'>
+<style>
+.ppr-wrap{display:grid;gap:16px;color:#18251f}.ppr-head,.ppr-panel-head,.ppr-detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}.ppr-eyebrow{margin:0 0 5px;color:#527063;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em}.ppr-title{margin:0;font-size:26px}.ppr-sub{margin:6px 0 0;color:#64736c;font-size:14px}.ppr-actions{display:flex;gap:8px;flex-wrap:wrap}.ppr-btn{border:1px solid #cbd6d0;background:#fff;color:#263b32;border-radius:8px;padding:9px 13px;font-weight:650;cursor:pointer}.ppr-btn--primary{background:#176b4d;border-color:#176b4d;color:#fff}.ppr-btn--small{padding:6px 10px;font-size:12px}.ppr-btn:disabled{opacity:.48;cursor:not-allowed}.ppr-alert{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid #efd49a;background:#fff8e8;border-radius:10px;font-size:13px}.ppr-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.ppr-kpi{background:#fff;border:1px solid #dfe6e2;border-radius:11px;padding:15px}.ppr-kpi span{display:block;color:#68776f;font-size:12px}.ppr-kpi strong{display:block;margin:7px 0 4px;font-size:24px}.ppr-kpi small{color:#68776f}.ppr-bad{color:#a43b32!important}.ppr-good{color:#19704f!important}.ppr-panel{background:#fff;border:1px solid #dfe6e2;border-radius:12px;overflow:hidden}.ppr-panel-head{padding:16px 18px;border-bottom:1px solid #e7ece9}.ppr-panel-head h3,.ppr-detail-head h3{margin:0;font-size:17px}.ppr-panel-head p{margin:4px 0 0;color:#6b7871;font-size:13px}.ppr-cut{font-size:12px;color:#6b7871}.ppr-filters{display:grid;grid-template-columns:1.5fr repeat(3,1fr) auto;gap:10px;padding:14px 18px;background:#f8faf9;border-bottom:1px solid #e7ece9}.ppr-field{display:grid;gap:4px;font-size:11px;color:#607068;font-weight:700}.ppr-field input,.ppr-field select{width:100%;box-sizing:border-box;border:1px solid #ccd7d1;border-radius:7px;padding:8px;background:#fff;color:#263b32}.ppr-filter-actions{display:flex;align-items:end;gap:6px}.ppr-table-wrap{overflow-x:auto}.ppr-table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}.ppr-table th{padding:10px 12px;background:#f3f7f5;color:#5c6e65;text-align:right;font-size:11px;text-transform:uppercase;letter-spacing:.03em}.ppr-table th:first-child,.ppr-table td:first-child{text-align:left}.ppr-table td{padding:12px;border-top:1px solid #edf1ef;text-align:right;font-variant-numeric:tabular-nums}.ppr-table tbody tr:hover{background:#f8fbf9}.ppr-selected{background:#eff8f3!important}.ppr-project strong,.ppr-project small{display:block}.ppr-project small{margin-top:3px;color:#718078;font-size:11px}.ppr-badge{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:750}.ppr-badge--run{background:#e7f1fb;color:#2d5f88}.ppr-badge--risk{background:#fdebe7;color:#a43b32}.ppr-badge--close{background:#f0eafa;color:#69508c}.ppr-badge--done{background:#e5f4ec;color:#19704f}.ppr-progress{display:flex;align-items:center;gap:7px;justify-content:flex-end}.ppr-track{width:64px;height:6px;background:#e4ebe7;border-radius:8px;overflow:hidden}.ppr-fill{height:100%;background:#278361;border-radius:8px}.ppr-fill--risk{background:#c56b45}.ppr-foot{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;color:#6b7871;font-size:12px}.ppr-detail{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(280px,.8fr);gap:16px}.ppr-detail-body{padding:18px}.ppr-detail-head{margin-bottom:15px}.ppr-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}.ppr-fact{padding:10px;background:#f7faf8;border-radius:8px;font-size:12px}.ppr-fact span{display:block;color:#718078;margin-bottom:4px}.ppr-link{color:#176b4d;font-weight:700;cursor:pointer;text-decoration:underline}.ppr-big-progress{display:flex;align-items:center;gap:12px;margin-bottom:16px}.ppr-big-progress .ppr-track{width:100%;height:9px}.ppr-finances{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}.ppr-finance{border:1px solid #e2e9e5;border-radius:8px;padding:10px}.ppr-finance span{display:block;font-size:10px;color:#718078;text-transform:uppercase}.ppr-finance strong{display:block;margin-top:5px;font-size:15px}.ppr-subtitle{margin:18px 0 8px;font-size:14px}.ppr-note{margin:12px 0 0;color:#6b7871;font-size:11px}.ppr-side{padding:18px}.ppr-side h3{margin:0 0 12px;font-size:16px}.ppr-riskbox{padding:12px;border-left:3px solid #c56b45;background:#fff5ef;font-size:12px;line-height:1.5}.ppr-list{list-style:none;padding:0;margin:14px 0;display:grid;gap:12px}.ppr-list li{padding-bottom:11px;border-bottom:1px solid #edf1ef;font-size:12px;line-height:1.45}.ppr-list strong,.ppr-list span{display:block}.ppr-list span{color:#718078;margin-top:3px}.ppr-side-actions{display:grid;gap:8px;margin-top:16px}.ppr-side-actions .ppr-btn{width:100%}.ppr-legend{font-size:12px;color:#68776f;line-height:1.5}@media(max-width:1100px){.ppr-kpis{grid-template-columns:repeat(2,1fr)}.ppr-filters{grid-template-columns:repeat(2,1fr)}.ppr-detail{grid-template-columns:1fr}.ppr-finances{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.ppr-kpis,.ppr-filters,.ppr-facts{grid-template-columns:1fr}.ppr-finances{grid-template-columns:repeat(2,1fr)}.ppr-alert{align-items:flex-start;flex-direction:column}}
+</style>
+<div class="ppr-wrap">
+  <header class="ppr-head">
+    <div>
+      <p class="ppr-eyebrow">Operación / Proyectos y presupuestos</p>
+      <h2 class="ppr-title">Presupuesto versus real</h2>
+      <p class="ppr-sub">Controla ejecución, compromisos y costo final estimado de cada proyecto.</p>
+    </div>
+    <div class="ppr-actions">
+      <button class="ppr-btn" type="button">Exportar reporte</button>
+      <button class="ppr-btn ppr-btn--primary" type="button" onclick="irA('cotizaciones')">+ Proyecto desde cotización</button>
+    </div>
+  </header>
+
+  <div class="ppr-alert">
+    <div><strong>Atención:</strong> Aurora y Casa Lirio superan su presupuesto en forecast por <strong>$3.650</strong>. Hay 3 gastos pendientes de conciliación.</div>
+    <button class="ppr-btn ppr-btn--small" type="button" onclick="irA('control-gastos')">Revisar gastos</button>
+  </div>
+
+  <div class="ppr-kpis" aria-label="Indicadores de cartera">
+    <article class="ppr-kpi"><span>Presupuesto de cartera</span><strong>$182.400</strong><small>6 proyectos · 4 en ejecución</small></article>
+    <article class="ppr-kpi"><span>Costo real acumulado</span><strong>$119.950</strong><small>65,8% del presupuesto</small></article>
+    <article class="ppr-kpi"><span>Comprometido</span><strong>$20.850</strong><small>Real + comprometido: $140.800</small></article>
+    <article class="ppr-kpi"><span>Forecast final</span><strong>$183.920</strong><small class="ppr-bad">Desvío: +$1.520 (+0,8%)</small></article>
+  </div>
+
+  <div class="ppr-panel">
+    <div class="ppr-panel-head">
+      <div><h3>Cartera de proyectos</h3><p>Avance físico ponderado: <strong>68,2%</strong> · 2 en riesgo · 1 en cierre · 1 completado</p></div>
+      <span class="ppr-cut">Corte: 20 jun 2025 · Datos demo en USD, sin impuestos</span>
+    </div>
+    <div class="ppr-filters">
+      <label class="ppr-field">Buscar proyecto o cliente<input type="search" placeholder="Ej. PRJ-024 o Aurora"></label>
+      <label class="ppr-field">Estado<select><option>Todos los estados</option><option>En curso</option><option>En riesgo</option><option>Cierre</option><option>Completado</option></select></label>
+      <label class="ppr-field">Responsable<select><option>Todos</option><option>Laura Gómez</option><option>Martín Ruiz</option><option>Sofía León</option></select></label>
+      <label class="ppr-field">Vigencia<select><option>2025</option><option>Últimos 90 días</option><option>Proyectos activos</option><option>Archivados</option></select></label>
+      <div class="ppr-filter-actions"><button class="ppr-btn ppr-btn--primary" type="button">Filtrar</button><button class="ppr-btn" type="button">Limpiar</button></div>
+    </div>
+    <div class="ppr-table-wrap">
+      <table class="ppr-table">
+        <thead><tr><th>Proyecto</th><th>Estado</th><th>Presupuesto</th><th>Real</th><th>Comprom.</th><th>Forecast</th><th>Desvío</th><th>Avance</th><th></th></tr></thead>
+        <tbody>
+          <tr class="ppr-selected">
+            <td class="ppr-project"><strong>PRJ-024 · Proyecto Aurora</strong><small>Grupo Aurora · Laura Gómez</small></td><td><span class="ppr-badge ppr-badge--risk">En riesgo</span></td><td>$48.500</td><td>$28.450</td><td>$6.200</td><td>$49.900</td><td class="ppr-bad">+$1.400<br><small>+2,9%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill ppr-fill--risk" style="width:62%"></div></div>62%</div></td><td><button class="ppr-btn ppr-btn--small" disabled>Abierto</button></td>
+          </tr>
+          <tr>
+            <td class="ppr-project"><strong>PRJ-023 · Proyecto Nápoles</strong><small>Café Nápoles · Martín Ruiz</small></td><td><span class="ppr-badge ppr-badge--run">En curso</span></td><td>$36.800</td><td>$19.300</td><td>$4.750</td><td>$35.950</td><td class="ppr-good">−$850<br><small>−2,3%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill" style="width:58%"></div></div>58%</div></td><td><button class="ppr-btn ppr-btn--small">Abrir</button></td>
+          </tr>
+          <tr>
+            <td class="ppr-project"><strong>PRJ-021 · Casa Lirio</strong><small>Cliente residencial · Sofía León</small></td><td><span class="ppr-badge ppr-badge--risk">En riesgo</span></td><td>$32.000</td><td>$26.780</td><td>$3.100</td><td>$34.250</td><td class="ppr-bad">+$2.250<br><small>+7,0%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill ppr-fill--risk" style="width:81%"></div></div>81%</div></td><td><button class="ppr-btn ppr-btn--small">Abrir</button></td>
+          </tr>
+          <tr>
+            <td class="ppr-project"><strong>PRJ-020 · Oficinas Nexo</strong><small>Nexo Consultores · Laura Gómez</small></td><td><span class="ppr-badge ppr-badge--run">En curso</span></td><td>$28.600</td><td>$12.940</td><td>$5.600</td><td>$27.900</td><td class="ppr-good">−$700<br><small>−2,4%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill" style="width:46%"></div></div>46%</div></td><td><button class="ppr-btn ppr-btn--small">Abrir</button></td>
+          </tr>
+          <tr>
+            <td class="ppr-project"><strong>PRJ-018 · Terraza Mira</strong><small>Mira Hospitality · Martín Ruiz</small></td><td><span class="ppr-badge ppr-badge--close">Cierre</span></td><td>$21.500</td><td>$17.860</td><td>$1.200</td><td>$21.300</td><td class="ppr-good">−$200<br><small>−0,9%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill" style="width:88%"></div></div>88%</div></td><td><button class="ppr-btn ppr-btn--small">Abrir</button></td>
+          </tr>
+          <tr>
+            <td class="ppr-project"><strong>PRJ-017 · Local Senda</strong><small>Senda Retail · Sofía León</small></td><td><span class="ppr-badge ppr-badge--done">Completado</span></td><td>$15.000</td><td>$14.620</td><td>$0</td><td>$14.620</td><td class="ppr-good">−$380<br><small>−2,5%</small></td><td><div class="ppr-progress"><div class="ppr-track"><div class="ppr-fill" style="width:100%"></div></div>100%</div></td><td><button class="ppr-btn ppr-btn--small">Abrir</button></td>
+          </tr>
+        </tbody>
+        <tfoot><tr><td colspan="2"><strong>Total cartera</strong></td><td><strong>$182.400</strong></td><td><strong>$119.950</strong></td><td><strong>$20.850</strong></td><td><strong>$183.920</strong></td><td class="ppr-bad"><strong>+$1.520</strong></td><td colspan="2"></td></tr></tfoot>
+      </table>
+    </div>
+    <div class="ppr-foot"><span>Mostrando 6 de 6 proyectos</span><div class="ppr-actions"><button class="ppr-btn ppr-btn--small" disabled>Anterior</button><button class="ppr-btn ppr-btn--small" disabled>Siguiente</button></div></div>
+  </div>
+
+  <div class="ppr-detail">
+    <article class="ppr-panel">
+      <div class="ppr-detail-body">
+        <div class="ppr-detail-head">
+          <div><p class="ppr-eyebrow">Detalle seleccionado · PRJ-024</p><h3>Proyecto Aurora</h3><p class="ppr-sub">Alcance y entregables según cotización aprobada COT-2025-041.</p></div>
+          <span class="ppr-badge ppr-badge--risk">En riesgo</span>
+        </div>
+        <div class="ppr-facts">
+          <div class="ppr-fact"><span>Cliente</span><strong>Grupo Aurora</strong></div>
+          <div class="ppr-fact"><span>Responsable</span><strong>Laura Gómez</strong></div>
+          <div class="ppr-fact"><span>Vigencia</span><strong>02 jun – 25 jul 2025</strong></div>
+          <div class="ppr-fact"><span>Documento origen</span><a class="ppr-link" onclick="irA('cotizaciones')">COT-2025-041</a></div>
+        </div>
+        <div class="ppr-big-progress"><strong>Avance físico</strong><div class="ppr-track"><div class="ppr-fill ppr-fill--risk" style="width:62%"></div></div><strong>62%</strong></div>
+        <div class="ppr-finances">
+          <div class="ppr-finance"><span>Presupuesto</span><strong>$48.500</strong></div>
+          <div class="ppr-finance"><span>Real · 58,7%</span><strong>$28.450</strong></div>
+          <div class="ppr-finance"><span>Comprometido</span><strong>$6.200</strong></div>
+          <div class="ppr-finance"><span>Restante estimado</span><strong>$15.250</strong></div>
+          <div class="ppr-finance"><span>Forecast</span><strong class="ppr-bad">$49.900</strong></div>
+        </div>
+        <h4 class="ppr-subtitle">Presupuesto por partida</h4>
+        <div class="ppr-table-wrap">
+          <table class="ppr-table">
+            <thead><tr><th>Partida</th><th>Presupuesto</th><th>Real</th><th>Comprom.</th><th>Forecast</th><th>Desvío</th></tr></thead>
+            <tbody>
+              <tr><td>Mano de obra</td><td>$18.000</td><td>$11.200</td><td>$2.400</td><td>$18.600</td><td class="ppr-bad">+$600</td></tr>
+              <tr><td>Materiales</td><td>$16.500</td><td>$10.950</td><td>$2.100</td><td>$17.450</td><td class="ppr-bad">+$950</td></tr>
+              <tr><td>Subcontratos</td><td>$8.000</td><td>$3.800</td><td>$1.200</td><td>$7.600</td><td class="ppr-good">−$400</td></tr>
+              <tr><td>Logística</td><td>$3.500</td><td>$1.650</td><td>$500</td><td>$3.750</td><td class="ppr-bad">+$250</td></tr>
+              <tr><td>Administración y otros</td><td>$2.500</td><td>$850</td><td>$0</td><td>$2.500</td><td>$0</td></tr>
+            </tbody>
+            <tfoot><tr><td><strong>Total</strong></td><td><strong>$48.500</strong></td><td><strong>$28.450</strong></td><td><strong>$6.200</strong></td><td><strong>$49.900</strong></td><td class="ppr-bad"><strong>+$1.400</strong></td></tr></tfoot>
+          </table>
+        </div>
+        <p class="ppr-note">Forecast = costo real + comprometido + restante estimado. El avance físico no se calcula desde el gasto; lo actualiza el responsable del proyecto.</p>
+      </div>
+    </article>
+
+    <aside class="ppr-panel ppr-side">
+      <h3>Control y próximos pasos</h3>
+      <div class="ppr-riskbox"><strong>Desvío forecast: +$1.400</strong><br>Materiales aporta $950 y mano de obra $600. El ahorro en subcontratos compensa $400.</div>
+      <h4 class="ppr-subtitle">Decisiones pendientes</h4>
+      <ul class="ppr-list">
+        <li><strong>Validar precio de materiales</strong><span>Antes del 21 jun · Laura Gómez</span></li>
+        <li><strong>Revisar reprogramación de cuadrilla</strong><span>Impacto estimado: $600 · 24 jun</span></li>
+        <li><strong>Aprobar entrega parcial</strong><span>Hito 3 · 27 jun · requiere evidencia</span></li>
+      </ul>
+      <h4 class="ppr-subtitle">Actividad financiera reciente</h4>
+      <ul class="ppr-list">
+        <li><strong>GAS-1184 · $1.240 conciliado</strong><span>20 jun, 16:40 · Materiales</span></li>
+        <li><strong>OC-074 · compromiso de $2.100</strong><span>18 jun, 11:15 · Proveedor demo</span></li>
+        <li><strong>Forecast actualizado: $49.250 → $49.900</strong><span>17 jun, 09:30 · Laura Gómez</span></li>
+      </ul>
+      <div class="ppr-side-actions">
+        <button class="ppr-btn ppr-btn--primary" type="button" onclick="irA('control-gastos')">Registrar o revisar gastos</button>
+        <button class="ppr-btn" type="button" onclick="irA('coordinacion')">Abrir coordinación</button>
+        <button class="ppr-btn" type="button" disabled title="Disponible al completar el proyecto y conciliar los gastos">Cerrar proyecto</button>
+      </div>
+    </aside>
+  </div>
+  <p class="ppr-legend">Los importes comprometidos provienen de órdenes u obligaciones aún no devengadas. Los cierres exigen avance del 100%, gastos conciliados y aceptación del entregable.</p>
+</div>
+</section>
+<section id='control-gastos' class='pantalla' style='display:none'>
+<style>
+.cg-modulo{--cg-azul:#3157d5;--cg-tinta:#182033;--cg-suave:#667085;--cg-linea:#e4e7ec;--cg-fondo:#f6f7fb;color:var(--cg-tinta);font-size:14px}.cg-modulo *{box-sizing:border-box}.cg-cabecera{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:16px}.cg-cabecera h1{margin:5px 0;font-size:28px}.cg-cabecera p{margin:0;color:var(--cg-suave)}.cg-miga{display:flex;gap:8px;align-items:center;color:var(--cg-suave);font-size:12px}.cg-enlace{border:0;background:none;color:var(--cg-azul);padding:0;cursor:pointer}.cg-acciones{display:flex;gap:8px;flex-wrap:wrap}.cg-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--cg-linea);border-radius:8px;background:#fff;color:var(--cg-tinta);padding:9px 13px;font-weight:600;text-decoration:none;cursor:pointer}.cg-btn-primario{background:var(--cg-azul);border-color:var(--cg-azul);color:#fff}.cg-btn:disabled{opacity:.45;cursor:not-allowed}.cg-btn-mini{padding:5px 9px;font-size:12px}.cg-aviso{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#fff8e8;border:1px solid #f2d38a;border-radius:10px;padding:11px 14px;margin-bottom:16px}.cg-aviso small{display:block;color:#795c18;margin-top:3px}.cg-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.cg-kpi,.cg-panel{background:#fff;border:1px solid var(--cg-linea);border-radius:12px}.cg-kpi{padding:15px}.cg-kpi span{color:var(--cg-suave);font-size:12px}.cg-kpi strong{display:block;font-size:25px;margin:6px 0}.cg-kpi small{color:var(--cg-suave)}.cg-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(280px,1fr);gap:16px;align-items:start}.cg-columna{display:grid;gap:16px}.cg-panel{padding:16px;min-width:0}.cg-panel-head{display:flex;justify-content:space-between;gap:12px;align-items:start;margin-bottom:13px}.cg-panel h2{font-size:17px;margin:0 0 4px}.cg-panel-head p,.cg-nota{margin:0;color:var(--cg-suave);font-size:12px}.cg-chip,.cg-estado{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;white-space:nowrap}.cg-chip{background:#eef2ff;color:#354a9c}.cg-estado-ok{background:#e9f8ef;color:#18794e}.cg-estado-pendiente{background:#fff3d6;color:#8a5a00}.cg-estado-mal{background:#feeceb;color:#b42318}.cg-filtros{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr auto auto;gap:8px;margin-bottom:14px}.cg-filtros label,.cg-formulario label{display:grid;gap:5px;color:#475467;font-size:12px;font-weight:600}.cg-modulo input,.cg-modulo select,.cg-modulo textarea{width:100%;border:1px solid #d0d5dd;border-radius:7px;background:#fff;color:var(--cg-tinta);padding:8px 9px;font:inherit}.cg-modulo textarea{min-height:65px;resize:vertical}.cg-tabla-wrap{overflow-x:auto}.cg-tabla{width:100%;border-collapse:collapse;min-width:790px}.cg-tabla th{text-align:left;color:var(--cg-suave);font-size:11px;text-transform:uppercase;letter-spacing:.03em;background:#f9fafb}.cg-tabla th,.cg-tabla td{padding:10px 8px;border-bottom:1px solid var(--cg-linea);vertical-align:middle}.cg-tabla td small{display:block;color:var(--cg-suave);margin-top:3px}.cg-tabla tfoot td{font-weight:700;background:#f9fafb}.cg-num{text-align:right!important;white-space:nowrap}.cg-mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px}.cg-pie-tabla{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;color:var(--cg-suave);font-size:12px}.cg-barra{height:6px;background:#edf0f4;border-radius:8px;overflow:hidden;margin-top:6px;min-width:75px}.cg-barra i{display:block;height:100%;background:var(--cg-azul);border-radius:8px}.cg-barra i.cg-alerta{background:#d92d20}.cg-presupuesto .cg-tabla{min-width:590px}.cg-formulario{display:grid;gap:11px}.cg-dos{display:grid;grid-template-columns:1fr 1fr;gap:9px}.cg-check{display:flex!important;grid-template-columns:none!important;flex-direction:row;align-items:center;font-weight:400!important}.cg-check input{width:auto}.cg-formulario .cg-acciones{justify-content:flex-end;border-top:1px solid var(--cg-linea);padding-top:12px}.cg-lista{list-style:none;padding:0;margin:0;display:grid;gap:10px}.cg-lista li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--cg-linea);padding-bottom:9px}.cg-lista li:last-child{border:0;padding-bottom:0}.cg-lista small{display:block;color:var(--cg-suave);margin-top:3px}.cg-total{display:flex;justify-content:space-between;border-top:1px solid var(--cg-linea);padding-top:11px;margin-top:12px;font-weight:700}.cg-categoria{margin-bottom:12px}.cg-categoria div{display:flex;justify-content:space-between;gap:8px}.cg-categoria small{color:var(--cg-suave)}@media(max-width:1100px){.cg-kpis{grid-template-columns:repeat(2,1fr)}.cg-grid{grid-template-columns:1fr}.cg-filtros{grid-template-columns:repeat(3,1fr)}}@media(max-width:650px){.cg-cabecera,.cg-aviso{align-items:flex-start;flex-direction:column}.cg-kpis,.cg-filtros,.cg-dos{grid-template-columns:1fr}.cg-panel{padding:12px}}
+</style>
+<div class="cg-modulo">
+  <header class="cg-cabecera">
+    <div>
+      <div class="cg-miga">
+        <button class="cg-enlace" type="button" onclick="irA('dashboard')">Panel</button>
+        <span>›</span><span>Control de gastos</span>
+      </div>
+      <h1>Control de gastos</h1>
+      <p>Registra egresos, valida soportes y compara presupuesto contra gasto real.</p>
+    </div>
+    <div class="cg-acciones">
+      <button class="cg-btn" type="button" title="Exportar los movimientos filtrados">Exportar CSV</button>
+      <a class="cg-btn cg-btn-primario" href="#cg-formulario">+ Registrar gasto</a>
+    </div>
+  </header>
+
+  <div class="cg-aviso">
+    <div>
+      <strong>Datos de demostración · Junio 2025 · Moneda: USD</strong>
+      <small>La jurisdicción, impuestos y tratamiento fiscal de los comprobantes están pendientes de configuración.</small>
+    </div>
+    <span class="cg-chip">Vista: Gerente operativo</span>
+  </div>
+
+  <div class="cg-kpis" aria-label="Indicadores de gastos">
+    <article class="cg-kpi">
+      <span>Gasto registrado en junio</span>
+      <strong>$18.460</strong>
+      <small>8 movimientos · +8,4% frente a mayo</small>
+    </article>
+    <article class="cg-kpi">
+      <span>Ejecución presupuestaria</span>
+      <strong>80,1%</strong>
+      <small>$102.010 consumidos de $127.400</small>
+      <div class="cg-barra"><i style="width:80.1%"></i></div>
+    </article>
+    <article class="cg-kpi">
+      <span>Pendiente de conciliación</span>
+      <strong>$6.020</strong>
+      <small>3 movimientos requieren revisión</small>
+    </article>
+    <article class="cg-kpi">
+      <span>Movimientos con soporte</span>
+      <strong>87,5%</strong>
+      <small>7 de 8 · 1 comprobante faltante</small>
+    </article>
+  </div>
+
+  <div class="cg-aviso">
+    <div>
+      <strong>PRY-021 · Café Central supera su presupuesto en $715</strong>
+      <small>Ejecución: 102,6%. Revisa el presupuesto antes de autorizar nuevos gastos.</small>
+    </div>
+    <button class="cg-btn cg-btn-mini" type="button" onclick="irA('proyectos')">Revisar proyecto</button>
+  </div>
+
+  <div class="cg-grid">
+    <main class="cg-columna">
+      <section class="cg-panel" aria-labelledby="cg-titulo-movimientos">
+        <div class="cg-panel-head">
+          <div>
+            <h2 id="cg-titulo-movimientos">Movimientos de gasto</h2>
+            <p>8 registros del 01 al 30 de junio de 2025</p>
+          </div>
+          <span class="cg-chip">Actualizado: 30 jun 2025</span>
+        </div>
+
+        <form class="cg-filtros">
+          <label>Buscar
+            <input type="search" placeholder="ID, proveedor o descripción">
+          </label>
+          <label>Proyecto
+            <select>
+              <option>Todos los proyectos</option>
+              <option>PRY-024 · Casa Lomas</option>
+              <option>PRY-023 · Oficina Nápoles</option>
+              <option>PRY-022 · Terraza Alameda</option>
+              <option>PRY-021 · Café Central</option>
+            </select>
+          </label>
+          <label>Categoría
+            <select>
+              <option>Todas</option><option>Materiales</option><option>Mano de obra</option>
+              <option>Mobiliario</option><option>Electricidad</option><option>Transporte</option>
+            </select>
+          </label>
+          <label>Conciliación
+            <select><option>Todos los estados</option><option>Conciliado</option><option>Por conciliar</option></select>
+          </label>
+          <button class="cg-btn cg-btn-primario" type="button">Filtrar</button>
+          <button class="cg-btn" type="reset">Limpiar</button>
+        </form>
+
+        <div class="cg-tabla-wrap">
+          <table class="cg-tabla">
+            <thead>
+              <tr><th>Fecha / ID</th><th>Proyecto</th><th>Proveedor / categoría</th><th class="cg-num">Importe</th><th>Soporte</th><th>Estado</th><th></th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>28 jun<small class="cg-mono">G-1048</small></td>
+                <td>Casa Lomas<small>PRY-024</small></td>
+                <td>Maderas del Sur<small>Materiales</small></td>
+                <td class="cg-num"><strong>$4.280,00</strong><small>Pagado</small></td>
+                <td>Factura F-8831</td><td><span class="cg-estado cg-estado-ok">Conciliado</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>27 jun<small class="cg-mono">G-1047</small></td>
+                <td>Oficina Nápoles<small>PRY-023</small></td>
+                <td>Cuadrilla R. Torres<small>Mano de obra</small></td>
+                <td class="cg-num"><strong>$3.600,00</strong><small>Pagado</small></td>
+                <td>Recibo R-119</td><td><span class="cg-estado cg-estado-pendiente">Por conciliar</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>26 jun<small class="cg-mono">G-1046</small></td>
+                <td>Café Central<small>PRY-021</small></td>
+                <td>Aceros y Diseño<small>Mobiliario</small></td>
+                <td class="cg-num"><strong>$2.915,00</strong><small>Pagado</small></td>
+                <td>Factura F-2094</td><td><span class="cg-estado cg-estado-ok">Conciliado</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>25 jun<small class="cg-mono">G-1045</small></td>
+                <td>Terraza Alameda<small>PRY-022</small></td>
+                <td>Construmart<small>Materiales</small></td>
+                <td class="cg-num"><strong>$1.780,00</strong><small>Pagado</small></td>
+                <td>Ticket T-4491</td><td><span class="cg-estado cg-estado-pendiente">Por conciliar</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>24 jun<small class="cg-mono">G-1044</small></td>
+                <td>Casa Lomas<small>PRY-024</small></td>
+                <td>Logística Rápida<small>Transporte</small></td>
+                <td class="cg-num"><strong>$640,00</strong><small>Pagado</small></td>
+                <td><span class="cg-estado cg-estado-mal">Sin soporte</span></td>
+                <td><span class="cg-estado cg-estado-pendiente">Por conciliar</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>22 jun<small class="cg-mono">G-1043</small></td>
+                <td>Oficina Nápoles<small>PRY-023</small></td>
+                <td>ElectroAndina<small>Electricidad</small></td>
+                <td class="cg-num"><strong>$2.250,00</strong><small>Pagado</small></td>
+                <td>Factura F-771</td><td><span class="cg-estado cg-estado-ok">Conciliado</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>20 jun<small class="cg-mono">G-1042</small></td>
+                <td>Café Central<small>PRY-021</small></td>
+                <td>Instalaciones Díaz<small>Mano de obra</small></td>
+                <td class="cg-num"><strong>$1.995,00</strong><small>Pagado</small></td>
+                <td>Factura F-118</td><td><span class="cg-estado cg-estado-ok">Conciliado</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+              <tr>
+                <td>18 jun<small class="cg-mono">G-1041</small></td>
+                <td>Casa Lomas<small>PRY-024</small></td>
+                <td>El Punto Ferretero<small>Materiales</small></td>
+                <td class="cg-num"><strong>$1.000,00</strong><small>Pagado</small></td>
+                <td>Ticket T-883</td><td><span class="cg-estado cg-estado-ok">Conciliado</span></td>
+                <td><button class="cg-btn cg-btn-mini" type="button">Ver</button></td>
+              </tr>
+            </tbody>
+            <tfoot><tr><td colspan="3">Total del periodo</td><td class="cg-num">$18.460,00</td><td colspan="3">8 movimientos</td></tr></tfoot>
+          </table>
+        </div>
+        <div class="cg-pie-tabla">
+          <span>Mostrando 8 de 8 movimientos</span>
+          <div class="cg-acciones">
+            <button class="cg-btn cg-btn-mini" type="button" disabled>Anterior</button>
+            <span>Página 1 de 1</span>
+            <button class="cg-btn cg-btn-mini" type="button" disabled>Siguiente</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="cg-panel cg-presupuesto" aria-labelledby="cg-titulo-presupuesto">
+        <div class="cg-panel-head">
+          <div><h2 id="cg-titulo-presupuesto">Presupuesto vs. gasto real</h2><p>Acumulado de proyectos activos y cerrados del periodo</p></div>
+          <button class="cg-btn cg-btn-mini" type="button" onclick="irA('proyectos')">Ver proyectos</button>
+        </div>
+        <div class="cg-tabla-wrap">
+          <table class="cg-tabla">
+            <thead><tr><th>Proyecto</th><th class="cg-num">Presupuesto</th><th class="cg-num">Gasto real</th><th class="cg-num">Disponible</th><th>Ejecución</th></tr></thead>
+            <tbody>
+              <tr><td>PRY-024<small>Cocina integral · Casa Lomas</small></td><td class="cg-num">$48.600</td><td class="cg-num">$31.840</td><td class="cg-num">$16.760</td><td>65,5%<div class="cg-barra"><i style="width:65.5%"></i></div></td></tr>
+              <tr><td>PRY-023<small>Remodelación · Oficina Nápoles</small></td><td class="cg-num">$32.400</td><td class="cg-num">$24.975</td><td class="cg-num">$7.425</td><td>77,1%<div class="cg-barra"><i style="width:77.1%"></i></div></td></tr>
+              <tr><td>PRY-022<small>Terraza · Residencial Alameda</small></td><td class="cg-num">$18.900</td><td class="cg-num">$16.980</td><td class="cg-num">$1.920</td><td>89,8%<div class="cg-barra"><i style="width:89.8%"></i></div></td></tr>
+              <tr><td>PRY-021<small>Adecuación · Café Central</small></td><td class="cg-num">$27.500</td><td class="cg-num">$28.215</td><td class="cg-num"><span class="cg-estado cg-estado-mal">−$715</span></td><td>102,6%<div class="cg-barra"><i class="cg-alerta" style="width:100%"></i></div></td></tr>
+            </tbody>
+            <tfoot><tr><td>Total cartera</td><td class="cg-num">$127.400</td><td class="cg-num">$102.010</td><td class="cg-num">$25.390</td><td>80,1%</td></tr></tfoot>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cg-columna">
+      <section class="cg-panel" aria-labelledby="cg-titulo-formulario">
+        <div class="cg-panel-head"><div><h2 id="cg-titulo-formulario">Registrar gasto</h2><p>Los campos marcados con * son obligatorios.</p></div></div>
+        <form id="cg-formulario" class="cg-formulario" onsubmit="return false">
+          <div class="cg-dos">
+            <label>Fecha *<input type="date" value="2025-06-30" required></label>
+            <label>Importe USD *<input type="number" min="0.01" step="0.01" placeholder="0,00" required></label>
+          </div>
+          <label>Proyecto *
+            <select required><option value="">Seleccionar proyecto</option><option>PRY-024 · Casa Lomas</option><option>PRY-023 · Oficina Nápoles</option><option>PRY-022 · Terraza Alameda</option><option>PRY-021 · Café Central</option></select>
+          </label>
+          <label>Categoría *
+            <select required><option value="">Seleccionar categoría</option><option>Materiales</option><option>Mano de obra</option><option>Mobiliario</option><option>Electricidad</option><option>Transporte</option><option>Otros</option></select>
+          </label>
+          <label>Proveedor *<input id="cg-proveedor" type="text" placeholder="Ej. Maderas del Sur" required></label>
+          <label>Descripción *<textarea placeholder="Detalle del material, servicio o entrega" required></textarea></label>
+          <div class="cg-dos">
+            <label>Método de pago<select><option>Transferencia</option><option>Tarjeta</option><option>Efectivo</option><option>Por definir</option></select></label>
+            <label>Estado de pago<select><option>Pagado</option><option>Por pagar</option></select></label>
+          </div>
+          <label>Comprobante
+            <input type="file" accept=".pdf,.jpg,.jpeg,.png">
+            <small>PDF, JPG o PNG · máximo 10 MB</small>
+          </label>
+          <label class="cg-check"><input type="checkbox" checked> Incluir en presupuesto vs. gasto real</label>
+          <div class="cg-acciones"><button class="cg-btn" type="reset">Limpiar</button><button class="cg-btn cg-btn-primario" type="submit">Guardar gasto</button></div>
+        </form>
+      </section>
+
+      <section class="cg-panel" aria-labelledby="cg-titulo-pendientes">
+        <div class="cg-panel-head"><div><h2 id="cg-titulo-pendientes">Pendientes de conciliación</h2><p>Selecciona movimientos para revisarlos.</p></div><span class="cg-chip">3</span></div>
+        <ul class="cg-lista">
+          <li><label class="cg-check"><input type="checkbox"><span>G-1047 · Cuadrilla R. Torres<small>Oficina Nápoles · Recibo R-119</small></span></label><strong>$3.600</strong></li>
+          <li><label class="cg-check"><input type="checkbox"><span>G-1045 · Construmart<small>Terraza Alameda · Ticket T-4491</small></span></label><strong>$1.780</strong></li>
+          <li><label class="cg-check"><input type="checkbox"><span>G-1044 · Logística Rápida<small>Casa Lomas · Comprobante faltante</small></span></label><strong>$640</strong></li>
+        </ul>
+        <div class="cg-total"><span>Total pendiente</span><span>$6.020</span></div>
+        <div class="cg-acciones" style="margin-top:12px">
+          <button class="cg-btn" type="button">Solicitar comprobante</button>
+          <button class="cg-btn cg-btn-primario" type="button" disabled>Conciliar seleccionados (0)</button>
+        </div>
+      </section>
+
+      <section class="cg-panel" aria-labelledby="cg-titulo-categorias">
+        <div class="cg-panel-head"><div><h2 id="cg-titulo-categorias">Gasto de junio por categoría</h2><p>Distribución sobre $18.460 registrados</p></div></div>
+        <div class="cg-categoria"><div><span>Materiales</span><strong>$7.060 · 38,2%</strong></div><div class="cg-barra"><i style="width:38.2%"></i></div></div>
+        <div class="cg-categoria"><div><span>Mano de obra</span><strong>$5.595 · 30,3%</strong></div><div class="cg-barra"><i style="width:30.3%"></i></div></div>
+        <div class="cg-categoria"><div><span>Mobiliario</span><strong>$2.915 · 15,8%</strong></div><div class="cg-barra"><i style="width:15.8%"></i></div></div>
+        <div class="cg-categoria"><div><span>Electricidad</span><strong>$2.250 · 12,2%</strong></div><div class="cg-barra"><i style="width:12.2%"></i></div></div>
+        <div class="cg-categoria"><div><span>Transporte</span><strong>$640 · 3,5%</strong></div><div class="cg-barra"><i style="width:3.5%"></i></div></div>
+      </section>
+    </aside>
+  </div>
+</div>
+</section>
+<section id='coordinacion-comunicaciones' class='pantalla' style='display:none'>
+  <style>
+    .cdc-wrap{color:#172033;font-family:inherit}
+    .cdc-top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}
+    .cdc-kicker{font-size:12px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#5b64d8}
+    .cdc-top h2{margin:5px 0 6px;font-size:26px;line-height:1.2}
+    .cdc-top p{margin:0;max-width:760px;color:#647087;font-size:14px}
+    .cdc-actions{display:flex;gap:9px;flex-wrap:wrap}
+    .cdc-btn{border:1px solid #d9deea;background:#fff;color:#34405a;border-radius:9px;padding:9px 13px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;font-size:13px}
+    .cdc-btn--primary{background:#5157c8;border-color:#5157c8;color:#fff}
+    .cdc-btn--soft{background:#eef0ff;border-color:#dfe2ff;color:#454bab}
+    .cdc-btn:disabled{cursor:not-allowed;opacity:.55}
+    .cdc-notice{display:flex;gap:11px;align-items:flex-start;background:#fff8e8;border:1px solid #f0d99d;border-radius:11px;padding:12px 14px;margin-bottom:16px;font-size:13px;color:#6d5317}
+    .cdc-notice strong{display:block;margin-bottom:2px}
+    .cdc-metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+    .cdc-metric{background:#fff;border:1px solid #e2e6ef;border-radius:12px;padding:15px}
+    .cdc-metric span{display:block;color:#69758b;font-size:12px;font-weight:700}
+    .cdc-metric strong{display:block;font-size:27px;margin:5px 0 2px}
+    .cdc-metric small{color:#7a8497;font-size:12px}
+    .cdc-metric--alert{border-top:3px solid #d98b22}
+    .cdc-metric--danger{border-top:3px solid #c94b5b}
+    .cdc-grid{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:16px;align-items:start}
+    .cdc-card{background:#fff;border:1px solid #e2e6ef;border-radius:12px;overflow:hidden;margin-bottom:16px}
+    .cdc-cardhead{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 17px;border-bottom:1px solid #e8ebf2}
+    .cdc-cardhead h3{margin:0;font-size:16px}
+    .cdc-cardhead p{margin:3px 0 0;color:#748096;font-size:12px}
+    .cdc-count{background:#eef0ff;color:#4d53b7;padding:4px 9px;border-radius:20px;font-size:12px;font-weight:800}
+    .cdc-filters{display:grid;grid-template-columns:minmax(180px,1.5fr) repeat(2,minmax(130px,.8fr)) auto;gap:9px;padding:13px 16px;background:#fafbfc;border-bottom:1px solid #e8ebf2}
+    .cdc-input,.cdc-select,.cdc-textarea{width:100%;box-sizing:border-box;border:1px solid #d8deea;border-radius:8px;background:#fff;color:#27334a;padding:9px 10px;font:inherit;font-size:13px}
+    .cdc-textarea{min-height:78px;resize:vertical;line-height:1.45}
+    .cdc-tablewrap{overflow-x:auto}
+    .cdc-table{width:100%;border-collapse:collapse;font-size:13px;min-width:850px}
+    .cdc-table th{text-align:left;background:#f7f8fb;color:#68748a;font-size:11px;text-transform:uppercase;letter-spacing:.04em;padding:10px 12px;border-bottom:1px solid #e3e7ef}
+    .cdc-table td{padding:12px;border-bottom:1px solid #edf0f4;vertical-align:top}
+    .cdc-table tr:last-child td{border-bottom:0}
+    .cdc-task{font-weight:800;color:#25314a;display:block;margin-bottom:4px}
+    .cdc-ref{color:#626bd0;font-size:12px;font-weight:700}
+    .cdc-sub{display:block;color:#7a8496;font-size:11px;margin-top:3px}
+    .cdc-badge{display:inline-block;border-radius:20px;padding:4px 8px;font-size:11px;font-weight:800;white-space:nowrap}
+    .cdc-badge--doing{background:#e9efff;color:#3d5ca8}
+    .cdc-badge--blocked{background:#fdecef;color:#a83c4b}
+    .cdc-badge--todo{background:#f0f1f4;color:#5d6677}
+    .cdc-badge--high{background:#fff0e4;color:#a85a18}
+    .cdc-badge--medium{background:#fff8dc;color:#826a16}
+    .cdc-badge--low{background:#edf5ef;color:#477354}
+    .cdc-link{border:0;background:transparent;color:#5159bd;font-weight:800;padding:3px 0;cursor:pointer;font-size:12px}
+    .cdc-foot{padding:11px 16px;border-top:1px solid #e8ebf2;color:#778196;font-size:12px;display:flex;justify-content:space-between;gap:10px}
+    .cdc-body{padding:16px}
+    .cdc-agenda{list-style:none;padding:0;margin:0}
+    .cdc-agenda li{display:grid;grid-template-columns:54px 1fr;gap:11px;padding:12px 0;border-bottom:1px solid #edf0f4}
+    .cdc-agenda li:last-child{border-bottom:0;padding-bottom:0}
+    .cdc-date{font-size:11px;font-weight:900;color:#555dc0;text-transform:uppercase}
+    .cdc-agenda strong{font-size:13px;display:block;margin-bottom:3px}
+    .cdc-agenda small{color:#778196;line-height:1.4;display:block}
+    .cdc-person{padding:12px 0;border-bottom:1px solid #edf0f4}
+    .cdc-person:last-child{border-bottom:0}
+    .cdc-personline{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:7px}
+    .cdc-person small{color:#778196}
+    .cdc-bar{height:7px;background:#eceef4;border-radius:8px;overflow:hidden}
+    .cdc-bar span{display:block;height:100%;background:#6269cf;border-radius:8px}
+    .cdc-bar--second span{background:#43a18a}
+    .cdc-timeline{list-style:none;margin:0;padding:0}
+    .cdc-timeline li{position:relative;padding:0 0 17px 22px;border-left:2px solid #e2e5f2;margin-left:7px}
+    .cdc-timeline li:last-child{padding-bottom:0}
+    .cdc-dot{position:absolute;left:-6px;top:2px;width:10px;height:10px;border-radius:50%;background:#6269cf;border:2px solid #fff}
+    .cdc-dot--call{background:#43a18a}
+    .cdc-dot--system{background:#d39232}
+    .cdc-meta{font-size:11px;color:#7a8496;margin-bottom:4px}
+    .cdc-timeline strong{font-size:13px}
+    .cdc-timeline p{margin:5px 0;color:#4f5b70;font-size:13px;line-height:1.5}
+    .cdc-tag{font-size:11px;background:#f1f3f8;border-radius:5px;padding:3px 6px;color:#5d687c;font-weight:700}
+    .cdc-form{display:grid;gap:12px}
+    .cdc-formrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .cdc-field label{display:block;font-size:12px;font-weight:800;color:#4d596e;margin-bottom:5px}
+    .cdc-check{font-size:12px;color:#59657a;display:flex;gap:7px;align-items:flex-start;line-height:1.4}
+    .cdc-formactions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .cdc-compose{border-top:1px solid #e8ebf2;background:#fafbfc;padding:15px 16px}
+    .cdc-compose h4{margin:0 0 11px;font-size:13px}
+    .cdc-composegrid{display:grid;grid-template-columns:160px 1fr;gap:10px;margin-bottom:10px}
+    .cdc-compose .cdc-textarea{margin-bottom:10px;min-height:68px}
+    .cdc-mini{font-size:11px;color:#7a8496;margin-left:auto}
+    @media(max-width:1050px){.cdc-grid{grid-template-columns:1fr}.cdc-metrics{grid-template-columns:repeat(2,1fr)}.cdc-side{display:grid;grid-template-columns:1fr 1fr;gap:16px}.cdc-filters{grid-template-columns:1fr 1fr}.cdc-top{flex-direction:column}}
+    @media(max-width:650px){.cdc-metrics,.cdc-side,.cdc-formrow,.cdc-composegrid{grid-template-columns:1fr}.cdc-filters{grid-template-columns:1fr}.cdc-top h2{font-size:22px}.cdc-foot{flex-direction:column}}
+  </style>
+
+  <div class="cdc-wrap">
+    <header class="cdc-top">
+      <div>
+        <span class="cdc-kicker">EDÉN · Operación interna</span>
+        <h2>Coordinación y comunicaciones</h2>
+        <p>Organiza responsables, vencimientos y acuerdos vinculados a solicitudes, cotizaciones y proyectos. Toda la actividad queda visible para Administración y Gerencia.</p>
+      </div>
+      <div class="cdc-actions">
+        <button type="button" class="cdc-btn" onclick="irA('proyectos')">Ver proyectos</button>
+        <a class="cdc-btn cdc-btn--primary" href="#cdc-form-tarea">+ Nueva tarea</a>
+      </div>
+    </header>
+
+    <div class="cdc-notice" role="status">
+      <span aria-hidden="true">⚠</span>
+      <div><strong>Telegram está previsto para una fase posterior.</strong>Las llamadas y conversaciones con clientes se documentan manualmente. Este prototipo no envía mensajes ni concede acceso a clientes externos.</div>
+    </div>
+
+    <div class="cdc-metrics" aria-label="Resumen de coordinación">
+      <article class="cdc-metric"><span>Tareas abiertas</span><strong>6</strong><small>4 de Gerencia · 2 de Administración</small></article>
+      <article class="cdc-metric cdc-metric--alert"><span>Vencen hoy</span><strong>2</strong><small>La próxima vence a las 11:30</small></article>
+      <article class="cdc-metric cdc-metric--danger"><span>Bloqueadas</span><strong>1</strong><small>Pendiente confirmación de proveedor</small></article>
+      <article class="cdc-metric"><span>Actualizaciones recientes</span><strong>4</strong><small>Notas, llamada y alerta del sistema</small></article>
+    </div>
+
+    <div class="cdc-grid">
+      <div>
+        <section class="cdc-card" aria-labelledby="cdc-tareas-titulo">
+          <div class="cdc-cardhead">
+            <div><h3 id="cdc-tareas-titulo">Plan de trabajo</h3><p>Seguimiento operativo con trazabilidad al expediente correspondiente.</p></div>
+            <span class="cdc-count">6 abiertas</span>
+          </div>
+          <div class="cdc-filters">
+            <input class="cdc-input" type="search" aria-label="Buscar tareas" placeholder="Buscar por tarea, folio o cliente">
+            <select class="cdc-select" aria-label="Filtrar por responsable">
+              <option>Todos los responsables</option><option>María Torres · Gerente</option><option>Carlos Ruiz · Administrador</option>
+            </select>
+            <select class="cdc-select" aria-label="Filtrar por estado">
+              <option>Todos los estados</option><option>En curso</option><option>Pendiente</option><option>Bloqueada</option>
+            </select>
+            <button type="button" class="cdc-btn cdc-btn--soft">Filtrar</button>
+          </div>
+          <div class="cdc-tablewrap">
+            <table class="cdc-table">
+              <thead><tr><th scope="col">Tarea y expediente</th><th scope="col">Responsable</th><th scope="col">Vencimiento</th><th scope="col">Estado</th><th scope="col">Prioridad</th><th scope="col">Acción</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="cdc-task">Confirmar alcance y medidas del local</span><span class="cdc-ref">SOL-2025-0048</span><span class="cdc-sub">Café Nápoles · Instalación eléctrica</span></td>
+                  <td>María Torres<span class="cdc-sub">Gerente</span></td><td><strong>Hoy, 11:30</strong><span class="cdc-sub">Visita técnica</span></td>
+                  <td><span class="cdc-badge cdc-badge--doing">En curso</span></td><td><span class="cdc-badge cdc-badge--high">Alta</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('solicitudes')">Abrir solicitud</button></td>
+                </tr>
+                <tr>
+                  <td><span class="cdc-task">Validar precio de cableado con proveedor</span><span class="cdc-ref">COT-2025-0041</span><span class="cdc-sub">Clínica Santa Fe · Revisión de costos</span></td>
+                  <td>Carlos Ruiz<span class="cdc-sub">Administrador</span></td><td><strong>Hoy, 16:00</strong><span class="cdc-sub">Bloquea emisión</span></td>
+                  <td><span class="cdc-badge cdc-badge--blocked">Bloqueada</span></td><td><span class="cdc-badge cdc-badge--high">Alta</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('cotizaciones')">Abrir cotización</button></td>
+                </tr>
+                <tr>
+                  <td><span class="cdc-task">Cargar comprobante de transporte</span><span class="cdc-ref">PRY-2025-0017</span><span class="cdc-sub">Oficinas Andino · Gasto de $180</span></td>
+                  <td>María Torres<span class="cdc-sub">Gerente</span></td><td><strong>Mañana</strong><span class="cdc-sub">19 jun, 12:00</span></td>
+                  <td><span class="cdc-badge cdc-badge--todo">Pendiente</span></td><td><span class="cdc-badge cdc-badge--medium">Media</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('gastos')">Ir a gastos</button></td>
+                </tr>
+                <tr>
+                  <td><span class="cdc-task">Revisar presupuesto contra gasto real</span><span class="cdc-ref">PRY-2025-0017</span><span class="cdc-sub">Oficinas Andino · Cierre de etapa 1</span></td>
+                  <td>Carlos Ruiz<span class="cdc-sub">Administrador</span></td><td><strong>20 jun</strong><span class="cdc-sub">Revisión 10:00</span></td>
+                  <td><span class="cdc-badge cdc-badge--doing">En curso</span></td><td><span class="cdc-badge cdc-badge--high">Alta</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('proyectos')">Abrir proyecto</button></td>
+                </tr>
+                <tr>
+                  <td><span class="cdc-task">Preparar revisión interna de cotización</span><span class="cdc-ref">COT-2025-0046</span><span class="cdc-sub">Hotel del Parque · Mantenimiento general</span></td>
+                  <td>María Torres<span class="cdc-sub">Gerente</span></td><td><strong>21 jun</strong><span class="cdc-sub">Antes de aprobación</span></td>
+                  <td><span class="cdc-badge cdc-badge--todo">Pendiente</span></td><td><span class="cdc-badge cdc-badge--medium">Media</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('cotizaciones')">Abrir cotización</button></td>
+                </tr>
+                <tr>
+                  <td><span class="cdc-task">Registrar cierre y lecciones aprendidas</span><span class="cdc-ref">PRY-2025-0012</span><span class="cdc-sub">Local Prisma · Proyecto entregado</span></td>
+                  <td>María Torres<span class="cdc-sub">Gerente</span></td><td><strong>24 jun</strong><span class="cdc-sub">Cierre administrativo</span></td>
+                  <td><span class="cdc-badge cdc-badge--todo">Pendiente</span></td><td><span class="cdc-badge cdc-badge--low">Baja</span></td>
+                  <td><button type="button" class="cdc-link" onclick="irA('proyectos')">Abrir proyecto</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="cdc-foot"><span>Mostrando 6 tareas activas · Orden: vencimiento ascendente</span><span>Datos de demostración · Actualizado 18 jun, 10:05</span></div>
+        </section>
+
+        <section class="cdc-card" aria-labelledby="cdc-actividad-titulo">
+          <div class="cdc-cardhead">
+            <div><h3 id="cdc-actividad-titulo">Bitácora de comunicaciones</h3><p>Acuerdos y contexto compartido; no sustituye los documentos de cotización.</p></div>
+            <span class="cdc-count">4 registros</span>
+          </div>
+          <div class="cdc-body">
+            <ol class="cdc-timeline">
+              <li><span class="cdc-dot"></span><div class="cdc-meta"><time datetime="2025-06-18T09:42">18 jun · 09:42</time> · María Torres · <span class="cdc-tag">Nota interna</span></div><strong>COT-2025-0041 · Clínica Santa Fe</strong><p>El proveedor aún no confirma vigencia del precio. @Carlos, validar el costo antes de generar el documento para el cliente.</p></li>
+              <li><span class="cdc-dot cdc-dot--call"></span><div class="cdc-meta"><time datetime="2025-06-18T09:10">18 jun · 09:10</time> · Carlos Ruiz · <span class="cdc-tag">Llamada registrada</span></div><strong>SOL-2025-0048 · Café Nápoles</strong><p>Valeria confirmó disponibilidad para la visita de las 11:30. Solicita incluir revisión de tablero y tomas de cocina en el alcance.</p></li>
+              <li><span class="cdc-dot cdc-dot--system"></span><div class="cdc-meta"><time datetime="2025-06-17T17:35">17 jun · 17:35</time> · Sistema · <span class="cdc-tag">Alerta</span></div><strong>PRY-2025-0017 · Oficinas Andino</strong><p>Se registró un gasto sin comprobante. Se creó la tarea de soporte documental y se notificó a Gerencia dentro del panel.</p></li>
+              <li><span class="cdc-dot"></span><div class="cdc-meta"><time datetime="2025-06-17T16:20">17 jun · 16:20</time> · María Torres · <span class="cdc-tag">Nota interna</span></div><strong>PRY-2025-0017 · Cierre de etapa 1</strong><p>La etapa queda lista para revisión presupuestaria. No marcar como cerrada hasta conciliar transporte y materiales.</p></li>
+            </ol>
+          </div>
+          <form class="cdc-compose">
+            <h4>Registrar una actualización</h4>
+            <div class="cdc-composegrid">
+              <select class="cdc-select" aria-label="Tipo de comunicación"><option>Nota interna</option><option selected>Llamada registrada</option><option>Correo registrado manualmente</option><option disabled>Telegram · integración pendiente</option></select>
+              <select class="cdc-select" aria-label="Expediente relacionado"><option selected>COT-2025-0041 · Clínica Santa Fe</option><option>SOL-2025-0048 · Café Nápoles</option><option>PRY-2025-0017 · Oficinas Andino</option></select>
+            </div>
+            <textarea class="cdc-textarea" aria-label="Detalle de la actualización">El proveedor confirmó recepción de la consulta; responderá la vigencia del precio antes de las 15:00.</textarea>
+            <div class="cdc-formactions"><button type="button" class="cdc-btn cdc-btn--primary">Guardar en bitácora</button><button type="button" class="cdc-btn" disabled title="Requiere configurar Telegram Bot API">Enviar por Telegram</button><span class="cdc-mini">Visible solo para el equipo interno</span></div>
+          </form>
+        </section>
+      </div>
+
+      <aside class="cdc-side">
+        <section class="cdc-card">
+          <div class="cdc-cardhead"><div><h3>Próximos hitos</h3><p>Agenda operativa del equipo</p></div></div>
+          <div class="cdc-body">
+            <ul class="cdc-agenda">
+              <li><span class="cdc-date">Hoy<br>11:30</span><div><strong>Visita técnica · Café Nápoles</strong><small>María · SOL-2025-0048<br>Confirmar medidas y alcance.</small></div></li>
+              <li><span class="cdc-date">Hoy<br>16:00</span><div><strong>Cierre de validación de costos</strong><small>Carlos · COT-2025-0041<br>Depende de respuesta del proveedor.</small></div></li>
+              <li><span class="cdc-date">20 jun<br>10:00</span><div><strong>Revisión presupuesto vs. real</strong><small>Ambos responsables · PRY-2025-0017<br>Etapa 1 de Oficinas Andino.</small></div></li>
+              <li><span class="cdc-date">21 jun<br>09:00</span><div><strong>Reunión semanal de operación</strong><small>Equipo interno · 30 minutos<br>Bloqueos, vencimientos y aprobaciones.</small></div></li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="cdc-card">
+          <div class="cdc-cardhead"><div><h3>Carga del equipo</h3><p>Distribución de tareas abiertas</p></div></div>
+          <div class="cdc-body">
+            <div class="cdc-person"><div class="cdc-personline"><strong>María Torres</strong><span>4 / 6</span></div><div class="cdc-bar"><span style="width:67%"></span></div><small>Gerente · 1 en curso, 3 pendientes</small></div>
+            <div class="cdc-person"><div class="cdc-personline"><strong>Carlos Ruiz</strong><span>2 / 6</span></div><div class="cdc-bar cdc-bar--second"><span style="width:33%"></span></div><small>Administrador · 1 en curso, 1 bloqueada</small></div>
+          </div>
+        </section>
+
+        <section class="cdc-card" id="cdc-form-tarea">
+          <div class="cdc-cardhead"><div><h3>Nueva tarea</h3><p>Asigna un siguiente paso verificable.</p></div></div>
+          <div class="cdc-body">
+            <form class="cdc-form">
+              <div class="cdc-field"><label for="cdc-titulo">Título</label><input class="cdc-input" id="cdc-titulo" value="Enviar alcance revisado a Café Nápoles"></div>
+              <div class="cdc-field"><label for="cdc-relacion">Expediente relacionado</label><select class="cdc-select" id="cdc-relacion"><option selected>SOL-2025-0048 · Café Nápoles</option><option>COT-2025-0041 · Clínica Santa Fe</option><option>PRY-2025-0017 · Oficinas Andino</option><option>COT-2025-0046 · Hotel del Parque</option></select></div>
+              <div class="cdc-field"><label for="cdc-responsable">Responsable</label><select class="cdc-select" id="cdc-responsable"><option selected>María Torres · Gerente</option><option>Carlos Ruiz · Administrador</option></select></div>
+              <div class="cdc-formrow">
+                <div class="cdc-field"><label for="cdc-fecha">Fecha límite</label><input class="cdc-input" id="cdc-fecha" type="date" value="2025-06-20"></div>
+                <div class="cdc-field"><label for="cdc-hora">Hora</label><input class="cdc-input" id="cdc-hora" type="time" value="12:00"></div>
+              </div>
+              <div class="cdc-field"><label for="cdc-prioridad">Prioridad</label><select class="cdc-select" id="cdc-prioridad"><option selected>Alta</option><option>Media</option><option>Baja</option></select></div>
+              <div class="cdc-field"><label for="cdc-detalle">Detalle y criterio de cierre</label><textarea class="cdc-textarea" id="cdc-detalle">Incorporar las medidas de la visita y dejar el alcance listo para revisión interna. Adjuntar las observaciones en la solicitud.</textarea></div>
+              <label class="cdc-check"><input type="checkbox" checked> Añadir también una nota en la bitácora del expediente.</label>
+              <div class="cdc-formactions"><button type="button" class="cdc-btn cdc-btn--primary">Crear tarea</button><button type="reset" class="cdc-btn">Restablecer</button></div>
+            </form>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+<section id='configuracion-auditoria' class='pantalla' style='display:none'>
+<style>
+.cau-modulo{display:grid;gap:16px}.cau-cabecera{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.cau-eyebrow{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.65;font-weight:700}.cau-cabecera h2{margin:.25rem 0}.cau-cabecera p{margin:0;max-width:760px;opacity:.78}.cau-acciones{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.cau-btn{border:1px solid rgba(127,127,127,.35);border-radius:8px;padding:9px 13px;background:transparent;color:inherit;cursor:pointer;font:inherit}.cau-btn-primario{background:#2563eb;border-color:#2563eb;color:#fff}.cau-btn:disabled{opacity:.45;cursor:not-allowed}.cau-badge{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:.75rem;font-weight:700;white-space:nowrap}.cau-badge-demo{background:rgba(245,158,11,.14);color:#b45309}.cau-badge-ok{background:rgba(16,185,129,.14);color:#047857}.cau-badge-pendiente{background:rgba(100,116,139,.14);color:#475569}.cau-badge-riesgo{background:rgba(239,68,68,.13);color:#b91c1c}.cau-alerta{border:1px solid rgba(239,68,68,.35);border-left:4px solid #ef4444;background:rgba(239,68,68,.06);border-radius:10px;padding:12px 14px}.cau-alerta p{margin:4px 0 0}.cau-nav{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid rgba(127,127,127,.25);padding-bottom:8px}.cau-nav a{color:inherit;text-decoration:none;padding:7px 10px;border-radius:7px;background:rgba(127,127,127,.07);font-size:.88rem}.cau-metricas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.cau-metrica,.cau-card{border:1px solid rgba(127,127,127,.24);border-radius:12px;background:rgba(127,127,127,.035);padding:15px}.cau-metrica small{display:block;opacity:.65}.cau-metrica strong{display:block;font-size:1.35rem;margin:4px 0}.cau-metrica span{font-size:.78rem;opacity:.72}.cau-grid{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:14px}.cau-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px}.cau-card-header h3{margin:0 0 4px}.cau-card-header p{margin:0;font-size:.85rem;opacity:.7}.cau-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.cau-field{display:grid;gap:5px}.cau-field-full{grid-column:1/-1}.cau-field label{font-size:.8rem;font-weight:650}.cau-field input,.cau-field select,.cau-field textarea,.cau-filtros input,.cau-filtros select{width:100%;box-sizing:border-box;border:1px solid rgba(127,127,127,.32);border-radius:7px;padding:8px 9px;background:transparent;color:inherit;font:inherit}.cau-field textarea{min-height:68px;resize:vertical}.cau-field small{font-size:.73rem;opacity:.65}.cau-field input:disabled,.cau-field select:disabled{opacity:.55}.cau-form-footer{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:3px}.cau-lista{list-style:none;padding:0;margin:0;display:grid;gap:0}.cau-lista li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(127,127,127,.16)}.cau-lista li:last-child{border-bottom:0}.cau-lista small{display:block;opacity:.65;margin-top:2px}.cau-flujo{font-size:.78rem;line-height:1.8;background:rgba(37,99,235,.06);padding:10px;border-radius:8px;margin-top:10px}.cau-tabla-wrap{overflow-x:auto}.cau-tabla{width:100%;border-collapse:collapse;font-size:.84rem}.cau-tabla th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;opacity:.65;white-space:nowrap}.cau-tabla th,.cau-tabla td{padding:10px 9px;border-bottom:1px solid rgba(127,127,127,.17);vertical-align:top}.cau-tabla tbody tr:last-child td{border-bottom:0}.cau-tabla td strong{display:block}.cau-tabla td small{opacity:.65}.cau-nota{font-size:.8rem;opacity:.75;margin:10px 0 0}.cau-permisos{margin-top:16px;border-top:1px solid rgba(127,127,127,.2);padding-top:14px}.cau-permisos h4{margin:0 0 4px}.cau-integraciones{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.8fr);gap:14px}.cau-pasos{margin:10px 0 0;padding-left:20px;font-size:.84rem;display:grid;gap:6px}.cau-seguridad{border:1px solid rgba(245,158,11,.3);background:rgba(245,158,11,.06);border-radius:9px;padding:11px;font-size:.82rem;margin-top:12px}.cau-filtros{display:grid;grid-template-columns:150px 170px 170px minmax(180px,1fr) auto auto;gap:8px;align-items:end;margin-bottom:10px}.cau-filtros label{display:grid;gap:4px;font-size:.73rem;opacity:.8}.cau-resultado{max-width:110px}.cau-auditoria-pie{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:.8rem}.cau-politica{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px}.cau-politica div{padding:10px;border-radius:8px;background:rgba(127,127,127,.06);font-size:.78rem}.cau-politica strong{display:block;margin-bottom:3px}.cau-enlaces{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}@media(max-width:1000px){.cau-metricas{grid-template-columns:repeat(2,1fr)}.cau-grid,.cau-integraciones{grid-template-columns:1fr}.cau-filtros{grid-template-columns:repeat(2,1fr)}.cau-politica{grid-template-columns:1fr}}@media(max-width:620px){.cau-form,.cau-metricas,.cau-filtros{grid-template-columns:1fr}.cau-card{padding:12px}.cau-cabecera{display:block}.cau-acciones{margin-top:12px}}
+</style>
+<div class="cau-modulo">
+  <header class="cau-cabecera">
+    <div>
+      <span class="cau-eyebrow">Yeruzza Forge · EDÉN · Administración</span>
+      <h2>Configuración, usuarios y auditoría</h2>
+      <p>Centraliza los parámetros operativos, los permisos internos, la preparación de integraciones y la trazabilidad de cambios.</p>
+    </div>
+    <div class="cau-acciones">
+      <span class="cau-badge cau-badge-demo">Datos de demostración</span>
+      <button type="button" class="cau-btn cau-btn-primario">Guardar borrador</button>
+    </div>
+  </header>
+
+  <div class="cau-alerta" role="alert">
+    <strong>Bloqueo antes de un despliegue público</strong>
+    <p>Forge no incorpora autenticación por defecto. Integrar <strong>JWT + RBAC</strong> y proteger esta pantalla antes de exponer el VPS. MFA queda recomendado y pendiente de priorización.</p>
+  </div>
+
+  <nav class="cau-nav" aria-label="Secciones de configuración">
+    <a href="#cau-general">General y costos</a>
+    <a href="#cau-usuarios">Usuarios y permisos</a>
+    <a href="#cau-integraciones">Integraciones</a>
+    <a href="#cau-auditoria">Auditoría</a>
+  </nav>
+
+  <div class="cau-metricas">
+    <article class="cau-metrica"><small>Roles internos</small><strong>2</strong><span>Administrador y Gerente</span></article>
+    <article class="cau-metrica"><small>Usuarios de muestra</small><strong>2</strong><span>Sin credenciales activas</span></article>
+    <article class="cau-metrica"><small>Ingreso de solicitudes</small><strong>Manual</strong><span>Recomendación para el MVP</span></article>
+    <article class="cau-metrica"><small>Eventos ilustrativos</small><strong>6</strong><span>Auditoría real pendiente</span></article>
+  </div>
+
+  <div class="cau-grid">
+    <section class="cau-card" id="cau-general">
+      <div class="cau-card-header">
+        <div><h3>Datos generales y reglas de cotización</h3><p>Los valores financieros son supuestos de trabajo hasta validar jurisdicción, moneda e impuestos.</p></div>
+        <span class="cau-badge cau-badge-demo">A1 pendiente</span>
+      </div>
+      <form class="cau-form">
+        <div class="cau-field"><label for="cau-nombre">Nombre comercial</label><input id="cau-nombre" value="EDÉN"></div>
+        <div class="cau-field"><label for="cau-razon">Razón social</label><input id="cau-razon" value="EDÉN Servicios y Proyectos (demo)"></div>
+        <div class="cau-field"><label for="cau-jurisdiccion">País / jurisdicción fiscal</label><select id="cau-jurisdiccion"><option selected>Pendiente de confirmar</option><option>México</option><option>Colombia</option><option>Perú</option><option>Argentina</option><option>España</option><option>Otra</option></select></div>
+        <div class="cau-field"><label for="cau-moneda">Moneda base</label><select id="cau-moneda"><option selected>Pendiente de confirmar</option><option>MXN — Peso mexicano</option><option>COP — Peso colombiano</option><option>PEN — Sol peruano</option><option>USD — Dólar estadounidense</option><option>EUR — Euro</option></select></div>
+        <div class="cau-field"><label for="cau-idioma">Idioma</label><select id="cau-idioma"><option selected>Español</option></select></div>
+        <div class="cau-field"><label for="cau-zona">Zona horaria</label><select id="cau-zona"><option selected>Pendiente de confirmar</option><option>America/Mexico_City</option><option>America/Bogota</option><option>America/Lima</option><option>Europe/Madrid</option></select></div>
+        <div class="cau-field"><label for="cau-prefijo">Prefijo de cotizaciones</label><input id="cau-prefijo" value="EDÉN-COT-"></div>
+        <div class="cau-field"><label for="cau-consecutivo">Próximo consecutivo</label><input id="cau-consecutivo" type="number" value="42" min="1"><small>Vista previa: EDÉN-COT-0042</small></div>
+        <div class="cau-field"><label for="cau-vigencia">Vigencia predeterminada</label><input id="cau-vigencia" type="number" value="15" min="1"><small>Días naturales · valor demo</small></div>
+        <div class="cau-field"><label for="cau-impuesto">Impuesto predeterminado (%)</label><input id="cau-impuesto" type="number" value="0" min="0" step="0.01"><small>No aplicar fiscalmente hasta validar A1.</small></div>
+        <div class="cau-field"><label for="cau-margen">Margen comercial demo (%)</label><input id="cau-margen" type="number" value="25" min="0" step="0.5"></div>
+        <div class="cau-field"><label for="cau-contingencia">Contingencia demo (%)</label><input id="cau-contingencia" type="number" value="5" min="0" step="0.5"></div>
+        <div class="cau-field cau-field-full"><label for="cau-pie">Pie del documento profesional</label><textarea id="cau-pie">Cotización sujeta a validación de alcance, disponibilidad, costos e impuestos. Vigencia y condiciones comerciales por confirmar.</textarea><small>El render PDF con logotipo y identidad de marca es un módulo pendiente de integrar.</small></div>
+        <div class="cau-form-footer"><small>Última edición demo: Administrador EDÉN · 18/06/2025 10:42</small><button type="button" class="cau-btn cau-btn-primario">Guardar configuración general</button></div>
+      </form>
+    </section>
+
+    <aside class="cau-card">
+      <div class="cau-card-header"><div><h3>Estado de plataforma</h3><p>Capacidades actuales y dependencias antes de producción.</p></div></div>
+      <ul class="cau-lista">
+        <li><div><strong>Base de datos</strong><small>SQLite para el MVP; migración portable prevista.</small></div><span class="cau-badge cau-badge-ok">Actual</span></li>
+        <li><div><strong>PostgreSQL</strong><small>Requerido al crecer volumen o concurrencia.</small></div><span class="cau-badge cau-badge-pendiente">Pendiente</span></li>
+        <li><div><strong>Autenticación JWT + RBAC</strong><small>Sin inicio de sesión ni control real de acceso.</small></div><span class="cau-badge cau-badge-riesgo">Bloqueante</span></li>
+        <li><div><strong>MFA</strong><small>Recomendado para cuentas administrativas.</small></div><span class="cau-badge cau-badge-pendiente">Por priorizar</span></li>
+        <li><div><strong>PDF de marca</strong><small>Plantilla y render profesional por integrar.</small></div><span class="cau-badge cau-badge-pendiente">Pendiente</span></li>
+        <li><div><strong>SMTP</strong><small>Envío de correo opcional; no incluido en v1.</small></div><span class="cau-badge cau-badge-pendiente">No configurado</span></li>
+        <li><div><strong>Respaldos</strong><small>Definir programación, retención y prueba de restauración.</small></div><span class="cau-badge cau-badge-riesgo">Sin programar</span></li>
+      </ul>
+      <div class="cau-flujo"><strong>Ruta de entrega</strong><br>Brief ✓ → Forge → Preview → GitHub → Dokploy → Dominio<br><span>No avanzar a dominio público sin autenticación y respaldo.</span></div>
+    </aside>
+  </div>
+
+  <section class="cau-card" id="cau-usuarios">
+    <div class="cau-card-header">
+      <div><h3>Usuarios internos</h3><p>Los clientes externos no son usuarios del sistema. Las identidades siguientes solo ilustran el modelo de acceso.</p></div>
+      <button type="button" class="cau-btn" disabled title="Disponible después de integrar autenticación">+ Invitar usuario</button>
+    </div>
+    <div class="cau-tabla-wrap">
+      <table class="cau-tabla">
+        <thead><tr><th>Usuario</th><th>Correo demo</th><th>Rol</th><th>Alcance</th><th>MFA</th><th>Estado</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Administrador EDÉN</strong><small>Cuenta interna U-001</small></td><td>admin@eden.demo</td><td>Administrador</td><td>Configuración, token, catálogos, operación y auditoría</td><td>No disponible</td><td><span class="cau-badge cau-badge-demo">Demo</span></td><td><button type="button" class="cau-btn" disabled>Editar</button></td></tr>
+          <tr><td><strong>Gerencia EDÉN</strong><small>Cuenta interna U-002</small></td><td>gerente@eden.demo</td><td>Gerente</td><td>Solicitudes, cotizaciones, proyectos y gastos</td><td>No disponible</td><td><span class="cau-badge cau-badge-demo">Demo</span></td><td><button type="button" class="cau-btn" disabled>Editar</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cau-permisos">
+      <h4>Matriz RBAC propuesta</h4>
+      <p class="cau-nota">Permisos del Gerente pendientes de congelar con el administrador · supuesto A5.</p>
+      <div class="cau-tabla-wrap">
+        <table class="cau-tabla">
+          <thead><tr><th>Módulo / capacidad</th><th>Administrador</th><th>Gerente</th><th>Regla propuesta</th></tr></thead>
+          <tbody>
+            <tr><td>Configuración y secretos</td><td>Control total</td><td>Sin acceso</td><td>El token nunca aparece en formularios de operación.</td></tr>
+            <tr><td>Usuarios y roles</td><td>Crear, editar y desactivar</td><td>Sin acceso</td><td>No se permiten autoelevaciones de privilegio.</td></tr>
+            <tr><td>Catálogo y costos</td><td>Crear y editar</td><td>Consultar</td><td>Conservar historial de cambios de costo.</td></tr>
+            <tr><td>Solicitudes y cotizaciones</td><td>Control total</td><td>Crear y editar</td><td>Carga manual durante el MVP.</td></tr>
+            <tr><td>Proyectos y gastos</td><td>Control total</td><td>Crear y editar</td><td>Adjuntar soporte y registrar presupuesto vs. real.</td></tr>
+            <tr><td>Auditoría</td><td>Consultar</td><td>Sin acceso</td><td>Sin edición ni borrado de eventos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="cau-integraciones" id="cau-integraciones">
+    <section class="cau-card">
+      <div class="cau-card-header">
+        <div><h3>Telegram Bot API</h3><p>Canal previsto para fase 2; no sustituye la carga manual del MVP.</p></div>
+        <span class="cau-badge cau-badge-pendiente">Pendiente de integrar</span>
+      </div>
+      <form class="cau-form">
+        <div class="cau-field"><label for="cau-bot">Nombre de referencia</label><input id="cau-bot" value="Bot EDÉN · por crear con @BotFather"></div>
+        <div class="cau-field"><label for="cau-usuario-bot">Usuario público del bot</label><input id="cau-usuario-bot" placeholder="Pendiente de creación" disabled></div>
+        <div class="cau-field cau-field-full"><label for="cau-token">Token del bot</label><input id="cau-token" type="password" placeholder="No pegar secretos reales en esta maqueta" disabled autocomplete="off"><small>En implementación se almacenará como secreto de Dokploy, nunca en código, auditoría ni chats.</small></div>
+        <div class="cau-field cau-field-full"><label for="cau-ingreso">Entrada de solicitudes externas</label><select id="cau-ingreso"><option selected>Carga manual por Administrador o Gerente · MVP</option><option disabled>Bot de Telegram · fase 2 y decisión A4 pendiente</option></select></div>
+        <div class="cau-form-footer"><button type="button" class="cau-btn" disabled>Guardar token</button><button type="button" class="cau-btn" disabled>Probar conexión</button></div>
+      </form>
+      <ol class="cau-pasos">
+        <li>El administrador crea el bot con <strong>@BotFather</strong>.</li>
+        <li>Entrega el token por un canal seguro al responsable del despliegue.</li>
+        <li>Se implementa emparejamiento de usuarios mediante código de un solo uso.</li>
+        <li>Se decide si el bot recibe solicitudes externas o solo apoya la operación interna.</li>
+      </ol>
+      <div class="cau-seguridad"><strong>Seguridad:</strong> revocar inmediatamente cualquier token expuesto. No registrar tokens, contraseñas ni códigos de emparejamiento en la auditoría.</div>
+    </section>
+
+    <aside class="cau-card">
+      <div class="cau-card-header"><div><h3>Integraciones y límites de v1</h3><p>Estado explícito para evitar expectativas de funciones inexistentes.</p></div></div>
+      <ul class="cau-lista">
+        <li><div><strong>Solicitudes manuales</strong><small>Flujo recomendado para iniciar operación.</small></div><span class="cau-badge cau-badge-ok">MVP</span></li>
+        <li><div><strong>Telegram</strong><small>Requiere bot, token, backend y emparejamiento.</small></div><span class="cau-badge cau-badge-pendiente">Fase 2</span></li>
+        <li><div><strong>Correo SMTP</strong><small>Sin servidor, remitente ni credenciales configurados.</small></div><span class="cau-badge cau-badge-pendiente">Opcional</span></li>
+        <li><div><strong>Pagos en línea</strong><small>No existe pasarela ni conciliación.</small></div><span class="cau-badge cau-badge-pendiente">Fuera de v1</span></li>
+        <li><div><strong>Facturación fiscal</strong><small>No sustituye al sistema fiscal de la jurisdicción.</small></div><span class="cau-badge cau-badge-pendiente">Fuera de v1</span></li>
+        <li><div><strong>Exportación CSV</strong><small>Capacidad Could; no forma parte del primer corte.</small></div><span class="cau-badge cau-badge-pendiente">Posterior</span></li>
+      </ul>
+    </aside>
+  </div>
+
+  <section class="cau-card" id="cau-auditoria">
+    <div class="cau-card-header">
+      <div><h3>Auditoría de operación</h3><p>Eventos ilustrativos para validar el diseño. La trazabilidad real se activará con autenticación y persistencia.</p></div>
+      <button type="button" class="cau-btn" disabled title="Exportación CSV prevista para una fase posterior">Exportar CSV</button>
+    </div>
+    <form class="cau-filtros">
+      <label>Fecha demo<input type="date" value="2025-06-18"></label>
+      <label>Actor<select><option selected>Todos</option><option>Administrador EDÉN</option><option>Gerencia EDÉN</option></select></label>
+      <label>Módulo<select><option selected>Todos</option><option>Configuración</option><option>Solicitudes</option><option>Cotizaciones</option><option>Proyectos y gastos</option><option>Catálogo</option></select></label>
+      <label>Buscar<input placeholder="Folio, acción o recurso"></label>
+      <button type="button" class="cau-btn cau-btn-primario">Filtrar</button>
+      <button type="button" class="cau-btn">Limpiar</button>
+    </form>
+    <div class="cau-tabla-wrap">
+      <table class="cau-tabla">
+        <thead><tr><th>Fecha y hora</th><th>Actor</th><th>Módulo</th><th>Recurso</th><th>Acción y detalle</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>18/06/2025<br><small>10:42:16</small></td><td>Administrador EDÉN</td><td>Configuración</td><td>PAR-COSTOS</td><td><strong>Actualizó parámetro demo</strong><small>Margen comercial: 22% → 25%</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+          <tr><td>18/06/2025<br><small>10:18:03</small></td><td>Gerencia EDÉN</td><td>Gastos</td><td>G-0087</td><td><strong>Adjuntó soporte</strong><small>comprobante-demo.pdf · proyecto PRY-0012</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+          <tr><td>18/06/2025<br><small>09:56:41</small></td><td>Gerencia EDÉN</td><td>Cotizaciones</td><td>EDÉN-COT-0041</td><td><strong>Cambió estado</strong><small>Borrador → En revisión</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+          <tr><td>18/06/2025<br><small>09:31:27</small></td><td>Gerencia EDÉN</td><td>Solicitudes</td><td>SOL-0038</td><td><strong>Creó solicitud</strong><small>Origen: carga manual · prioridad normal</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+          <tr><td>18/06/2025<br><small>09:12:09</small></td><td>Administrador EDÉN</td><td>Catálogo</td><td>MAT-014</td><td><strong>Actualizó costo unitario demo</strong><small>Se conserva valor anterior para trazabilidad</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+          <tr><td>18/06/2025<br><small>08:55:32</small></td><td>Administrador EDÉN</td><td>Auditoría</td><td>AUD-DEMO</td><td><strong>Consultó eventos</strong><small>Filtro: jornada demo completa</small></td><td><span class="cau-badge cau-badge-ok">Registrado</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cau-auditoria-pie"><span>Mostrando 6 de 6 eventos demo</span><span>Los importes se omiten hasta confirmar moneda base.</span></div>
+    <div class="cau-politica">
+      <div><strong>Registro inmutable</strong>Eventos de solo anexar, con fecha, actor, recurso, acción y valores anterior/nuevo cuando aplique.</div>
+      <div><strong>Retención por definir</strong>Propuesta inicial de 12 meses, sujeta a validación legal, capacidad y política interna.</div>
+      <div><strong>Datos protegidos</strong>Excluir contraseñas, tokens, secretos SMTP y contenido innecesario de comprobantes.</div>
+    </div>
+  </section>
+
+  <div class="cau-enlaces" aria-label="Módulos relacionados">
+    <button type="button" class="cau-btn" onclick="irA('solicitudes')">Ir a solicitudes</button>
+    <button type="button" class="cau-btn" onclick="irA('cotizaciones')">Ir a cotizaciones</button>
+    <button type="button" class="cau-btn" onclick="irA('proyectos')">Ir a proyectos</button>
+    <button type="button" class="cau-btn" onclick="irA('gastos')">Ir a gastos</button>
+  </div>
+</div>
+</section>
+</main>
+</body>
+</html>
